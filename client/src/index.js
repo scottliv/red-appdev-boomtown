@@ -17,7 +17,7 @@ import muiTheme from './config/theme';
 import Layout from './components/Layout';
 import HeaderBar from './components/HeaderBar';
 import Login from './containers/Login';
-import Items from './containers/Items';
+import ItemCardList from './components/ItemCardList';
 import Profile from './containers/Profile';
 import Share from './containers/Share';
 
@@ -29,7 +29,7 @@ const Boomtown = () => (
                     <div>
                         <Link to="/items">Items</Link>{' '}
                         <Switch>
-                            <Route exact path="/" component={Items} />
+                            <Route exact path="/" component={ItemCardList} />
                             <Route exact path="/login" component={Login} />
                             <Route exact path="/profile" component={Profile} />
                             <Route exact path="/share" component={Share} />

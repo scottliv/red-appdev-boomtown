@@ -10,6 +10,7 @@
         "prop-types": "^15.6.0",
         "react": "^16.0.0",
         "react-dom": "^16.0.0",
+        "react-masonry-component": "^6.0.2",
         "react-router": "^4.2.0",
         "react-router-dom": "^4.2.2"
     },
@@ -27,7 +28,6 @@
         "test": "react-scripts test --env=jsdom",
         "eject": "react-scripts eject",
         "json-server": "json-server --watch ../server/db.json --port 4000",
-        "dev":
-            "concurrently \"react-scripts start\" \"json-server --watch ../server/db.json --port 4000\""
+        "dev": "concurrently \"react-scripts start\" \"json-server --watch ../server/db.json --port 4000\""
     }
 }
