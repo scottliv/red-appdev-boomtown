@@ -15,7 +15,7 @@ import './index.css';
 import muiTheme from './config/theme';
 
 import Layout from './components/Layout';
-import HeaderBar from './components/HeaderBar';
+
 import Login from './containers/Login';
 import Items from './containers/Items';
 import Profile from './containers/Profile';
@@ -23,18 +23,18 @@ import Share from './containers/Share';
 
 const Boomtown = () => (
     <MuiThemeProvider muiTheme={muiTheme}>
-        <Layout>
-            <div className="page">
-                <Router>
+        <Router>
+            <Layout>
+                <div className="page">
                     <Switch>
                         <Route exact path="/" component={Items} />
                         <Route exact path="/login" component={Login} />
                         <Route exact path="/profile" component={Profile} />
                         <Route exact path="/share" component={Share} />
                     </Switch>
-                </Router>
-            </div>
-        </Layout>
+                </div>
+            </Layout>
+        </Router>
     </MuiThemeProvider>
 );
 

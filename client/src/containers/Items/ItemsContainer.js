@@ -33,6 +33,7 @@ export default class ItemsContainer extends Component {
                 console.log(item);
                 return item;
             });
+
             this.setState({ items: combinedItems });
         });
     }

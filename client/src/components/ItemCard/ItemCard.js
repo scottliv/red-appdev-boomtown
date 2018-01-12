@@ -8,6 +8,7 @@ import {
     CardTitle,
     CardText
 } from 'material-ui/Card';
+import Gravatar from 'react-gravatar';
 import styles from './styles';
 
 const ItemCard = ({ item }) => (
@@ -21,13 +22,19 @@ const ItemCard = ({ item }) => (
                     />
                 }
             >
-                <img src={item.imageurl} alt="" />
+                <img src={item.imageurl} alt={item.title} />
             </CardMedia>
             <CardHeader
                 title={item.itemowner.fullname}
                 subtitle={Moment(item.created).fromNow()}
-                avatar={item.imageurl}
+                avatar={
+                    <Gravatar
+                        style={{ borderRadius: '50%' }}
+                        email={item.itemowner.email}
+                    />
+                }
             />
+
             <CardTitle title={item.title} subtitle={item.tags} />
             <CardText>{item.description}</CardText>
         </Card>
