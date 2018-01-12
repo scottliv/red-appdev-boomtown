@@ -17,24 +17,21 @@ import muiTheme from './config/theme';
 import Layout from './components/Layout';
 import HeaderBar from './components/HeaderBar';
 import Login from './containers/Login';
-import ItemCardList from './components/ItemCardList';
+import Items from './containers/Items';
 import Profile from './containers/Profile';
 import Share from './containers/Share';
 
 const Boomtown = () => (
     <MuiThemeProvider muiTheme={muiTheme}>
         <Layout>
-            <div>
+            <div className="page">
                 <Router>
-                    <div>
-                        <Link to="/items">Items</Link>{' '}
-                        <Switch>
-                            <Route exact path="/" component={ItemCardList} />
-                            <Route exact path="/login" component={Login} />
-                            <Route exact path="/profile" component={Profile} />
-                            <Route exact path="/share" component={Share} />
-                        </Switch>
-                    </div>
+                    <Switch>
+                        <Route exact path="/" component={Items} />
+                        <Route exact path="/login" component={Login} />
+                        <Route exact path="/profile" component={Profile} />
+                        <Route exact path="/share" component={Share} />
+                    </Switch>
                 </Router>
             </div>
         </Layout>

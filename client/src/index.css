@@ -145,7 +145,7 @@ body {
   font-family: "Roboto", sans-serif;
   height: 100vh;
   line-height: 1.75;
-  /*overflow: auto;*/
+  overflow: auto;
   width: 100vw;
 }
 
@@ -157,5 +157,21 @@ body {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+}
+
+.item-card {
+  width: 100%;
+}
+
+@media (min-width: 600px) {
+  .item-card {
+    width: 46%;
+  }
+}
+
+@media (min-width: 960px) {
+  .item-card {
+    width: 31%;
+  }
 }
