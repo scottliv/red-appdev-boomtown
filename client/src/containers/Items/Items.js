@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import Masonry from 'react-masonry-component';
 import PropTypes from 'prop-types';
 import ItemCard from '../../components/ItemCard';
-import styles from './styles.js';
+// import styles from './styles';
+import styles from './styles.css';
 
 const masonryOptions = {
     columnWidth: 33,
@@ -17,8 +18,8 @@ const Items = ({ items }) => (
             options={masonryOptions}
         >
             {items
-                ? items.map(item => (
-                    <li className="item-card" style={styles.itemCard}>
+                ? items.map((item, i) => (
+                    <li className="item-card" key={i} style={styles.itemCard}>
                         <ItemCard key={item.id} item={item} />
                     </li>
                 ))

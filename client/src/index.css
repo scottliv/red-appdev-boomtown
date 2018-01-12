@@ -159,19 +159,3 @@ body {
   width: 100%;
   min-height: 100vh;
 }
-
-.item-card {
-  width: 100%;
-}
-
-@media (min-width: 600px) {
-  .item-card {
-    width: 46%;
-  }
-}
-
-@media (min-width: 960px) {
-  .item-card {
-    width: 31%;
-  }
-}

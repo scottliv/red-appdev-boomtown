@@ -1,4 +1,5 @@
 import React from 'react';
+import Moment from 'moment';
 import {
     Card,
     CardActions,
@@ -24,7 +25,7 @@ const ItemCard = ({ item }) => (
             </CardMedia>
             <CardHeader
                 title={item.itemowner.fullname}
-                subtitle={item.tags.forEach(tag => tag)}
+                subtitle={Moment(item.created).fromNow()}
                 avatar={item.imageurl}
             />
             <CardTitle title={item.title} subtitle={item.tags} />
