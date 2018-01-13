@@ -162,5 +162,6 @@ body {
 
 .header-logo {
   height: 35px;
-  margin: 2rem;
+  /* margin: 1.5rem;*/
+  padding: 0 1.5rem;
 }

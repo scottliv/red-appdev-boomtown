@@ -1,18 +1,17 @@
 import React from 'react';
-import IconMenu from 'material-ui/IconMenu';
-import IconButton from 'material-ui/IconButton';
-import FontIcon from 'material-ui/FontIcon';
-import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
+
+import {
+    BrowserRouter as Router,
+    Route,
+    Switch,
+    Link,
+    Redirect
+} from 'react-router-dom';
+
+import AppBar from 'material-ui/AppBar';
 import MenuItem from 'material-ui/MenuItem';
-import DropDownMenu from 'material-ui/DropDownMenu';
 import RaisedButton from 'material-ui/RaisedButton';
 import SelectField from 'material-ui/SelectField';
-import {
-    Toolbar,
-    ToolbarGroup,
-    ToolbarSeparator,
-    ToolbarTitle
-} from 'material-ui/Toolbar';
 
 import logo from '../../images/boomtown-logo.svg';
 
@@ -36,39 +35,60 @@ export default class HeaderBar extends React.Component {
 
     render() {
         return (
-            <Toolbar
+            <AppBar
+                className="headerBar"
                 style={{
                     width: '100vw',
-                    height: '60px',
-                    position: 'fixed',
                     left: 0,
                     zIndex: 100,
-                    backgroundColor: '#fff'
+                    position: 'fixed',
+                    backgroundColor: '#fff',
+                    alignItems: 'center'
                 }}
-            >
-                <ToolbarGroup firstChild>
-                    <a href="/">
-                        <img
-                            src={logo}
-                            alt="Boomtown"
-                            className="header-logo"
-                        />
-                    </a>
-                    <SelectField
-                        value={this.state.value}
-                        onChange={this.handleChange}
-                        multiple
-                        floatingLabelText="Filter by tag"
-                    >
-                        {items}
-                    </SelectField>
-                </ToolbarGroup>
-                <ToolbarGroup>
-                    <FontIcon className="muidocs-icon-custom-sort" />
-                    <RaisedButton label="My Profile" primary />
-                    <RaisedButton label="Logout" primary />
-                </ToolbarGroup>
-            </Toolbar>
+                iconElementLeft={
+                    <div>
+                        <Router>
+                            <Link to="/">
+                                <a href="/">
+                                    <img
+                                        src={logo}
+                                        alt="Boomtown"
+                                        className="header-logo"
+                                    />
+                                </a>
+                            </Link>
+                        </Router>
+                        <SelectField
+                            value={this.state.value}
+                            onChange={this.handleChange}
+                            multiple
+                            floatingLabelText="Filter by tag"
+                        >
+                            {items}
+                        </SelectField>
+                    </div>
+                }
+                iconElementRight={
+                    <Route>
+                        <div>
+                            <Link to="/profile">
+                                <RaisedButton
+                                    style={{ margin: '0 1rem 0 0' }}
+                                    label="My Profile"
+                                    primary
+                                />
+                            </Link>
+                            <Link to="/login">
+                                <RaisedButton
+                                    style={{ margin: '0' }}
+                                    label="Logout"
+                                    secondary
+                                />
+                            </Link>
+                        </div>
+                    </Route>
+                }
+            />
         );
     }
 }
