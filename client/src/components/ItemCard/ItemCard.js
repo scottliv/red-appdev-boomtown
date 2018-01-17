@@ -16,10 +16,13 @@ const ItemCard = ({ item }) => (
         <Card style={styles.itemCard}>
             <CardMedia
                 overlay={
-                    <CardTitle
-                        title="Overlay title"
-                        subtitle="Overlay subtitle"
-                    />
+                    item.borrower ? (
+                        <CardTitle
+                            title={`Lent To ${item.borrower.fullname}`}
+                        />
+                    ) : (
+                        ''
+                    )
                 }
             >
                 <img src={item.imageurl} alt={item.title} />

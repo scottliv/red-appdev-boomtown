@@ -24,16 +24,18 @@ import Share from './containers/Share';
 const Boomtown = () => (
     <MuiThemeProvider muiTheme={muiTheme}>
         <Router>
-            <Layout>
-                <div className="page">
-                    <Switch>
-                        <Route exact path="/" component={Items} />
-                        <Route exact path="/login" component={Login} />
-                        <Route exact path="/profile" component={Profile} />
-                        <Route exact path="/share" component={Share} />
-                    </Switch>
-                </div>
-            </Layout>
+            <div>
+                <Route exact path="/login" component={Login} />
+                <Layout>
+                    <div className="page">
+                        <Switch>
+                            <Route exact path="/" component={Items} />
+                            <Route exact path="/profile" component={Profile} />
+                            <Route exact path="/share" component={Share} />
+                        </Switch>
+                    </div>
+                </Layout>
+            </div>
         </Router>
     </MuiThemeProvider>
 );

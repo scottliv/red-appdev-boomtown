@@ -1,0 +1,25 @@
+.item-card {
+  width: 100%;
+  padding: 1%;
+}
+
+@media (min-width: 600px) {
+  .item-card {
+    width: 46%;
+  }
+}
+
+@media (min-width: 980px) {
+  .item-card {
+    width: 31%;
+  }
+}
+
+.masonry-container {
+  width: 100%;
+}
+
+.item-gallery {
+  width: 100%;
+  margin: 0, auto;
+}

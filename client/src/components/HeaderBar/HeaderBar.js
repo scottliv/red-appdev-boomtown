@@ -13,7 +13,6 @@ const HeaderBar = () => (
         className="headerBar"
         style={{
             width: '100vw',
-            height: '65px',
             left: 0,
             zIndex: 100,
             position: 'fixed',

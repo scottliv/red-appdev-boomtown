@@ -17,18 +17,20 @@ const Items = ({ items }) => (
             elementType="ul"
             options={masonryOptions}
         >
-            {items
-                ? items.map((item, i) => (
-                    <li className="item-card" key={i} style={styles.itemCard}>
-                        <ItemCard key={item.id} item={item} />
-                    </li>
-                ))
-                : ''}
+            {Object.values(items).map(item => (
+                <div
+                    className="item-card"
+                    key={item.id}
+                    style={styles.itemCard}
+                >
+                    <ItemCard key={item.id} item={item} />
+                </div>
+            ))}
         </Masonry>
     </div>
 );
 
 Items.propTypes = {
-    items: PropTypes.array.isRequired
+    items: PropTypes.object.isRequired
 };
 export default Items;

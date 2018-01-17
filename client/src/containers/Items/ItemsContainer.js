@@ -9,7 +9,7 @@ export default class ItemsContainer extends Component {
     constructor() {
         super();
         this.state = {
-            items: []
+            items: {}
         };
     }
     componentDidMount() {
@@ -18,23 +18,33 @@ export default class ItemsContainer extends Component {
         const users = fetch(USERS_URL).then(r => r.json());
 
         Promise.all([items, users]).then(response => {
-            const userTable = {};
+            // const userTable = {};
             const [itemsList, userList] = response;
-            userList.forEach(user => {
-                userTable[user.id] = user;
-            });
+            const userTable = userList.reduce((obj, user) => {
+                obj[user.id] = user;
+                return obj;
+            }, {});
 
-            const combinedItems = itemsList.map(item => {
+            const combinedItems = itemsList.reduce((obj, item) => {
                 const itemOwner = item.itemowner;
+                const itemBorrower = item.borrower;
+                obj[item.id] = item;
 
-                if (itemOwner === userTable[itemOwner].id) {
-                    item.itemowner = userTable[itemOwner];
+                if (obj[item.id].itemowner === userTable[itemOwner].id) {
+                    obj[item.id].itemowner = userTable[itemOwner];
                 }
-                console.log(item);
-                return item;
-            });
+
+                if (
+                    obj[item.id].borrower &&
+                    obj[item.id].borrower === userTable[itemBorrower].id
+                ) {
+                    obj[item.id].borrower = userTable[itemBorrower];
+                }
+                return obj;
+            }, {});
 
             this.setState({ items: combinedItems });
+            console.log(combinedItems);
         });
     }
     render() {
