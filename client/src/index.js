@@ -41,7 +41,7 @@ const Boomtown = () => (
                                 />
                                 <Route
                                     exact
-                                    path="/profile/:userID"
+                                    path="/profile/:userid"
                                     component={Profile}
                                 />
                                 <Route exact path="/share" component={Share} />

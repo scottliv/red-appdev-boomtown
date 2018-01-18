@@ -36,7 +36,7 @@ const ItemCard = ({ item }) => (
             >
                 <img src={item.imageurl} alt={item.title} />
             </CardMedia>
-            <Link to="/profile/">
+            <Link to={`/profile/${item.itemowner.id}`}>
                 <CardHeader
                     title={item.itemowner.fullname}
                     subtitle={Moment(item.created).fromNow()}

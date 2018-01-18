@@ -5,11 +5,12 @@ const ITEMS_URL = 'http://localhost:4000/items';
 const USERS_URL = 'http://localhost:4000/users';
 
 export default class ProfileContainer extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             items: {},
-            user: {}
+            user: {},
+            userid: this.props.match.params.userid
         };
     }
     componentDidMount() {
@@ -29,7 +30,7 @@ export default class ProfileContainer extends Component {
 
             // extract user data and item data into single objects
             const combinedItems = itemsList.reduce((obj, item) => {
-                const user = 'eEvh1WUF5nb5eeUksUQb3Ph0kOU2';
+                const user = this.state.userid;
                 const itemOwner = item.itemowner;
                 const itemBorrower = item.borrower;
                 if (user === item.itemowner) {
