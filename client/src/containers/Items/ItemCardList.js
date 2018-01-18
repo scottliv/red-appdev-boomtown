@@ -4,14 +4,13 @@ import PropTypes from 'prop-types';
 import ItemCard from '../../components/ItemCard';
 // import styles from './styles';
 import styles from './styles.css';
-import ItemCardList from './ItemCardList';
 
 const masonryOptions = {
     columnWidth: 33,
     itemSelector: '.item-card'
 };
 
-const Items = ({ items }) => (
+const ItemCardList = ({ items }) => (
     <div style={styles.itemGallery} className="item-gallery">
         <Masonry
             style={styles.itemGallery}
@@ -31,7 +30,7 @@ const Items = ({ items }) => (
     </div>
 );
 
-Items.propTypes = {
+ItemCardList.propTypes = {
     items: PropTypes.object.isRequired
 };
 export default ItemCardList;

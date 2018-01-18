@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ItemCardList from './ItemCardList';
 import Items from './Items';
 import styles from './styles';
 
@@ -44,10 +45,9 @@ export default class ItemsContainer extends Component {
             }, {});
 
             this.setState({ items: combinedItems });
-            console.log(combinedItems);
         });
     }
     render() {
-        return <Items items={this.state.items} />;
+        return <ItemCardList items={this.state.items} />;
     }
 }

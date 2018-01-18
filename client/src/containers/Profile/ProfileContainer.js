@@ -8,7 +8,8 @@ export default class ItemsContainer extends Component {
     constructor() {
         super();
         this.state = {
-            items: {}
+            items: {},
+            user: {}
         };
     }
     componentDidMount() {
@@ -18,11 +19,15 @@ export default class ItemsContainer extends Component {
 
         Promise.all([items, users]).then(response => {
             // const userTable = {};
+
             const [itemsList, userList] = response;
             const userTable = userList.reduce((obj, user) => {
                 obj[user.id] = user;
                 return obj;
             }, {});
+
+            const currentUser = userTable.eEvh1WUF5nb5eeUksUQb3Ph0kOU2;
+            // console.log(currentUser);
 
             const combinedItems = itemsList.reduce((obj, item) => {
                 const user = 'eEvh1WUF5nb5eeUksUQb3Ph0kOU2';
@@ -45,11 +50,12 @@ export default class ItemsContainer extends Component {
                 return obj;
             }, {});
 
-            this.setState({ items: combinedItems });
-            console.log(combinedItems);
+            this.setState({ items: combinedItems, user: currentUser });
         });
     }
     render() {
-        return <Profile items={this.state.items} />;
+        return (
+            <Profile items={this.state.items} currentUser={this.state.user} />
+        );
     }
 }

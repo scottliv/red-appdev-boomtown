@@ -15,10 +15,11 @@ const ItemCard = ({ item }) => (
     <div>
         <Card style={styles.itemCard}>
             <CardMedia
+                overlayContentStyle={{ textTransform: 'uppercase' }}
                 overlay={
                     item.borrower ? (
                         <CardTitle
-                            title={`Lent To ${item.borrower.fullname}`}
+                            subtitle={`Lent To ${item.borrower.fullname}`}
                         />
                     ) : (
                         ''

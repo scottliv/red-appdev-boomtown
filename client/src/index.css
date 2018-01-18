@@ -162,7 +162,7 @@ body {
 }
 
 .menubar-items-left {
-  margin-bottom: 2rem;
+  margin: -8px -8px 0 16px;
 }
 
 .header-logo {
