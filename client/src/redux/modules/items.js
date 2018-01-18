@@ -49,7 +49,7 @@ export const fetchItemsAndUsers = () => dispatch => {
             }, {});
             dispatch(getItems(combinedItems));
         })
-        .catch(error => dispatch(getItemsError(error)));
+        .catch(error => dispatch(getItemsError(error.message)));
 };
 
 // Reducer
