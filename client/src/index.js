@@ -30,7 +30,12 @@ const Boomtown = () => (
                     <div className="page">
                         <Switch>
                             <Route exact path="/" component={Items} />
-                            <Route exact path="/profile" component={Profile} />
+                            <Route exact path="/profile/" component={Profile} />
+                            <Route
+                                exact
+                                path="/profile/:userID"
+                                component={Profile}
+                            />
                             <Route exact path="/share" component={Share} />
                         </Switch>
                     </div>

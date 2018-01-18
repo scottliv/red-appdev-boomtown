@@ -12,9 +12,10 @@ const masonryOptions = {
 
 const ItemCardList = ({ items }) => (
     <div style={styles.itemGallery} className="item-gallery">
+        {console.log(items)}
         <Masonry
             style={styles.itemGallery}
-            elementType="ul"
+            elementType="div"
             options={masonryOptions}
         >
             {Object.values(items).map(item => (

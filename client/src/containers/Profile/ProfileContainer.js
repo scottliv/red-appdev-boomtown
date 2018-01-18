@@ -4,7 +4,7 @@ import Profile from './Profile';
 const ITEMS_URL = 'http://localhost:4000/items';
 const USERS_URL = 'http://localhost:4000/users';
 
-export default class ItemsContainer extends Component {
+export default class ProfileContainer extends Component {
     constructor() {
         super();
         this.state = {
@@ -18,8 +18,7 @@ export default class ItemsContainer extends Component {
         const users = fetch(USERS_URL).then(r => r.json());
 
         Promise.all([items, users]).then(response => {
-            // const userTable = {};
-
+            // Turn user array into an object
             const [itemsList, userList] = response;
             const userTable = userList.reduce((obj, user) => {
                 obj[user.id] = user;
@@ -27,8 +26,8 @@ export default class ItemsContainer extends Component {
             }, {});
 
             const currentUser = userTable.eEvh1WUF5nb5eeUksUQb3Ph0kOU2;
-            // console.log(currentUser);
 
+            // extract user data and item data into single objects
             const combinedItems = itemsList.reduce((obj, item) => {
                 const user = 'eEvh1WUF5nb5eeUksUQb3Ph0kOU2';
                 const itemOwner = item.itemowner;

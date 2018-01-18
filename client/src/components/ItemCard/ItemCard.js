@@ -8,6 +8,14 @@ import {
     CardTitle,
     CardText
 } from 'material-ui/Card';
+import {
+    BrowserRouter as Router,
+    Route,
+    Switch,
+    Link,
+    Redirect
+} from 'react-router-dom';
+import Profile from '../../containers/Profile';
 import Gravatar from 'react-gravatar';
 import styles from './styles';
 
@@ -28,16 +36,18 @@ const ItemCard = ({ item }) => (
             >
                 <img src={item.imageurl} alt={item.title} />
             </CardMedia>
-            <CardHeader
-                title={item.itemowner.fullname}
-                subtitle={Moment(item.created).fromNow()}
-                avatar={
-                    <Gravatar
-                        style={{ borderRadius: '50%' }}
-                        email={item.itemowner.email}
-                    />
-                }
-            />
+            <Link to="/profile/">
+                <CardHeader
+                    title={item.itemowner.fullname}
+                    subtitle={Moment(item.created).fromNow()}
+                    avatar={
+                        <Gravatar
+                            style={{ borderRadius: '50%' }}
+                            email={item.itemowner.email}
+                        />
+                    }
+                />
+            </Link>
 
             <CardTitle title={item.title} subtitle={item.tags} />
             <CardText>{item.description}</CardText>
