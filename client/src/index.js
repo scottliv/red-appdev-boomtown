@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import registerServiceWorker from './registerServiceWorker';
+import { Provider } from 'react-redux';
 
 import {
     BrowserRouter as Router,
@@ -10,6 +11,8 @@ import {
     Link,
     Redirect
 } from 'react-router-dom';
+
+import store from './redux/store';
 
 import './index.css';
 import muiTheme from './config/theme';
@@ -23,25 +26,31 @@ import Share from './containers/Share';
 
 const Boomtown = () => (
     <MuiThemeProvider muiTheme={muiTheme}>
-        <Router>
-            <div>
-                <Route exact path="/login" component={Login} />
-                <Layout>
-                    <div className="page">
-                        <Switch>
-                            <Route exact path="/" component={Items} />
-                            <Route exact path="/profile/" component={Profile} />
-                            <Route
-                                exact
-                                path="/profile/:userID"
-                                component={Profile}
-                            />
-                            <Route exact path="/share" component={Share} />
-                        </Switch>
-                    </div>
-                </Layout>
-            </div>
-        </Router>
+        <Provider store={store}>
+            <Router>
+                <div>
+                    <Route exact path="/login" component={Login} />
+                    <Layout>
+                        <div className="page">
+                            <Switch>
+                                <Route exact path="/" component={Items} />
+                                <Route
+                                    exact
+                                    path="/profile/"
+                                    component={Profile}
+                                />
+                                <Route
+                                    exact
+                                    path="/profile/:userID"
+                                    component={Profile}
+                                />
+                                <Route exact path="/share" component={Share} />
+                            </Switch>
+                        </div>
+                    </Layout>
+                </div>
+            </Router>
+        </Provider>
     </MuiThemeProvider>
 );
 

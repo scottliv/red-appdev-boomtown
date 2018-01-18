@@ -1,53 +1,29 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import { fetchItemsAndUsers } from '../../redux/modules/items';
 import ItemCardList from './ItemCardList';
 import Items from './Items';
 import styles from './styles';
 
-const ITEMS_URL = 'http://localhost:4000/items';
-const USERS_URL = 'http://localhost:4000/users';
+class ItemsContainer extends Component {
+    static propTypes = {};
 
-export default class ItemsContainer extends Component {
-    constructor() {
-        super();
-        this.state = {
-            items: {}
-        };
-    }
     componentDidMount() {
-        // Fetch JSON and attach to state
-        const items = fetch(ITEMS_URL).then(r => r.json());
-        const users = fetch(USERS_URL).then(r => r.json());
-
-        Promise.all([items, users]).then(response => {
-            // const userTable = {};
-            const [itemsList, userList] = response;
-            const userTable = userList.reduce((obj, user) => {
-                obj[user.id] = user;
-                return obj;
-            }, {});
-
-            const combinedItems = itemsList.reduce((obj, item) => {
-                const itemOwner = item.itemowner;
-                const itemBorrower = item.borrower;
-                obj[item.id] = item;
-
-                if (obj[item.id].itemowner === userTable[itemOwner].id) {
-                    obj[item.id].itemowner = userTable[itemOwner];
-                }
-
-                if (
-                    obj[item.id].borrower &&
-                    obj[item.id].borrower === userTable[itemBorrower].id
-                ) {
-                    obj[item.id].borrower = userTable[itemBorrower];
-                }
-                return obj;
-            }, {});
-
-            this.setState({ items: combinedItems });
-        });
+        this.props.dispatch(fetchItemsAndUsers());
     }
+
     render() {
-        return <ItemCardList items={this.state.items} />;
+        console.log(this.props);
+        if (this.props.isLoading) return <p>Loading</p>;
+        return <ItemCardList items={this.props.items} />;
     }
 }
+
+const mapStateToProps = state => ({
+    isLoading: state.items.isLoading,
+    items: state.items.items,
+    error: state.items.error
+});
+
+export default connect(mapStateToProps)(ItemsContainer);
