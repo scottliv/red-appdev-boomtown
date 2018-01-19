@@ -25,8 +25,6 @@ export const filterItems = (items, tags) => ({
 const filterHelperFunction = (items, filterTags) => {
     const filteredItems = Object.values(items).reduce((itemsAccu, item) => {
         filterTags.forEach(filterTag => {
-            console.log(filterTag);
-            console.log(item);
             if (item.tags && item.tags.indexOf(filterTag) > -1) {
                 itemsAccu[item.id] = item;
             }

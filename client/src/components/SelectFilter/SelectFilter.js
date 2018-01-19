@@ -82,7 +82,7 @@ class SelectFilter extends React.Component {
 const mapStateToProps = state => ({
     isLoading: state.items.isLoading,
     items: state.items.items,
-    filtered: state.items.filtered,
+    filtered: state.items.filteredItems,
     error: state.items.error
 });
 
