@@ -7,9 +7,9 @@ const GET_PROFILE_ERROR = 'GET_PROFILE_ERROR';
 // Action Creators
 
 const getProfileLoading = () => ({ type: GET_PROFILE_LOADING });
-const getProfile = (items, userid, borrowed) => ({
+const getProfile = (items, userid, currentUser, borrowed) => ({
     type: GET_PROFILE,
-    payload: { items, userid, borrowed }
+    payload: { items, userid, currentUser, borrowed }
 });
 const getProfileError = error => ({
     type: GET_PROFILE_ERROR,
@@ -36,7 +36,7 @@ export const fetchProfile = userid => dispatch => {
                 return userAccu;
             }, {});
 
-            // const currentUser = userTable.eEvh1WUF5nb5eeUksUQb3Ph0kOU2;
+            const currentUser = userTable[userid];
 
             // extract user data and item data into single objects
             const combinedItems = itemsList.reduce((combinedItemAccu, item) => {
@@ -65,7 +65,7 @@ export const fetchProfile = userid => dispatch => {
                 }
                 return combinedItemAccu;
             }, {});
-            dispatch(getProfile(combinedItems, userid, borrowed));
+            dispatch(getProfile(combinedItems, userid, currentUser, borrowed));
         })
         .catch(error => dispatch(getProfileError(error.message)));
 };
@@ -79,6 +79,7 @@ export default (
         borrowed: [],
         userLoggedIn: 'eEvh1WUF5nb5eeUksUQb3Ph0kOU2',
         userid: '',
+        currentUser: {},
         error: ''
     },
     action
@@ -93,6 +94,7 @@ export default (
             isLoading: false,
             borrowed: action.payload.borrowed,
             userid: action.payload.userid,
+            currentUser: action.payload.currentUser,
             items: action.payload.items,
             error: ''
         };

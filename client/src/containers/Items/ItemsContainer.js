@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import { fetchItemsAndUsers } from '../../redux/modules/items';
 import ItemCardList from '../../components/ItemCardList/';
+import Loader from '../../components/Loader/';
 import styles from './styles';
 
 class ItemsContainer extends Component {
@@ -14,7 +15,7 @@ class ItemsContainer extends Component {
 
     render() {
         console.log(this.props);
-        if (this.props.isLoading) return <p>Loading</p>;
+        if (this.props.isLoading) return <Loader />;
         return this.props.filtered &&
             Object.keys(this.props.filtered).length ? (
                 <ItemCardList items={this.props.filtered} />

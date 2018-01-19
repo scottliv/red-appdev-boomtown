@@ -37,7 +37,6 @@ class SelectFilter extends React.Component {
 
     handleChange = (event, index, selected) => {
         this.props.dispatch(filterItems(this.props.items, selected));
-        console.log(this.props);
         this.setState({ selected });
     };
 
@@ -46,9 +45,9 @@ class SelectFilter extends React.Component {
         case 0:
             return '';
         case 1:
-            return menuItems && menuItems[selected[0]];
+            return 'One tag selected';
         default:
-            return `${selected.length} items selected`;
+            return `${selected.length} tags selected`;
         }
     };
 
@@ -56,7 +55,7 @@ class SelectFilter extends React.Component {
         return items.map(item => (
             <MenuItem
                 checked={this.state.selected.indexOf(item.value) > -1}
-                insertChildren
+                insetChildren
                 key={item.key}
                 value={item.value}
                 primaryText={item.primaryText}

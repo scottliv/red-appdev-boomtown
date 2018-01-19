@@ -13,8 +13,7 @@ const leftElement = () => (
         <Link to="/">
             <img src={logo} alt="Boomtown" className="header-logo" />
         </Link>
-
-        <SelectFilter />
+        <Route exact path="/" component={SelectFilter} />
     </div>
 );
 

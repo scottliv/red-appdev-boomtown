@@ -22,7 +22,7 @@ class ProfileContainer extends Component {
         return (
             <Profile
                 items={this.props.items}
-                currentUser={this.props.userid}
+                currentUser={this.props.currentUser}
                 borrowed={this.props.borrowed}
             />
         );
@@ -33,7 +33,8 @@ const mapStateToProps = state => ({
     isLoading: state.profile.isLoading,
     items: state.profile.items,
     borrowed: state.profile.borrowed,
-    userid: state.userid,
+    userid: state.profile.userid,
+    currentUser: state.profile.currentUser,
     error: state.profile.error
 });
 
