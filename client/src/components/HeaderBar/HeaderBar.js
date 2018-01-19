@@ -21,7 +21,7 @@ const leftElement = () => (
 const rightElement = () => (
     <Route>
         <div>
-            <Link to="/profile">
+            <Link to="/profile/eEvh1WUF5nb5eeUksUQb3Ph0kOU2">
                 <RaisedButton
                     style={{ margin: '0 1rem 0 0' }}
                     label="My Profile"

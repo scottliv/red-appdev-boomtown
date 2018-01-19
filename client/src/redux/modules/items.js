@@ -4,6 +4,8 @@ const GET_ITEMS_LOADING = 'GET_ITEMS_LOADING';
 const GET_ITEMS = 'GET_ITEMS';
 const GET_ITEMS_ERROR = 'GET_ITEMS_ERROR';
 
+const FILTER_ITEMS = 'FILTER_ITEMS';
+
 // Action Creators
 
 const getItemsLoading = () => ({ type: GET_ITEMS_LOADING });
@@ -12,6 +14,29 @@ const getItemsError = error => ({
     type: GET_ITEMS_ERROR,
     payload: error
 });
+
+export const filterItems = (items, tags) => ({
+    type: FILTER_ITEMS,
+    payload: { items, tags }
+});
+
+// Helper Function
+
+const filterHelperFunction = (items, filterTags) => {
+    const filteredItems = Object.values(items).reduce((itemsAccu, item) => {
+        filterTags.forEach(filterTag => {
+            console.log(filterTag);
+            console.log(item);
+            if (item.tags && item.tags.indexOf(filterTag) > -1) {
+                itemsAccu[item.id] = item;
+            }
+        });
+
+        return itemsAccu;
+    }, {});
+    return filteredItems;
+};
+
 // Async Action
 export const fetchItemsAndUsers = () => dispatch => {
     dispatch(getItemsLoading());
@@ -58,6 +83,7 @@ export default (
     state = {
         isLoading: false,
         items: {},
+        filteredItems: {},
         error: ''
     },
     action
@@ -76,6 +102,18 @@ export default (
     }
     case GET_ITEMS_ERROR: {
         return { ...state, isLoading: false, error: action.payload };
+    }
+
+    case FILTER_ITEMS: {
+        const filtered = filterHelperFunction(
+            action.payload.items,
+            action.payload.tags
+        );
+        return {
+            ...state,
+            filteredItems: filtered,
+            isLoading: false
+        };
     }
     default:
         return state;

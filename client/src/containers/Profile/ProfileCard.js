@@ -9,17 +9,17 @@ import {
 } from 'material-ui/Card';
 import Gravatar from 'react-gravatar';
 
-const ProfileCard = ({ items, currentUser }) => (
-    <div>
-        {currentUser ? (
+const ProfileCard = ({ items, currentUser, borrowed }) => {
+    const itemKeys = Object.keys(items);
+    console.log(borrowed);
+    return (
+        <div>
             <Card>
                 <CardTitle />
-                <CardText>{currentUser.fullname}</CardText>
+                <CardText />
             </Card>
-        ) : (
-            ''
-        )}
-    </div>
-);
+        </div>
+    );
+};
 
 export default ProfileCard;
