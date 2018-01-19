@@ -30,7 +30,7 @@ export const fetchProfile = userid => dispatch => {
     return Promise.all([items, users, borrowed])
         .then(response => {
             // Turn user array into an object
-            const [itemsList, userList] = response;
+            const [itemsList, userList, borrowedList] = response;
             const userTable = userList.reduce((userAccu, user) => {
                 userAccu[user.id] = user;
                 return userAccu;
@@ -65,7 +65,9 @@ export const fetchProfile = userid => dispatch => {
                 }
                 return combinedItemAccu;
             }, {});
-            dispatch(getProfile(combinedItems, userid, currentUser, borrowed));
+            dispatch(
+                getProfile(combinedItems, userid, currentUser, borrowedList)
+            );
         })
         .catch(error => dispatch(getProfileError(error.message)));
 };
