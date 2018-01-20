@@ -20,21 +20,6 @@ export const filterItems = (items, tags) => ({
     payload: { items, tags }
 });
 
-// Helper Function
-
-const filterHelperFunction = (items, filterTags) => {
-    const filteredItems = Object.values(items).reduce((itemsAccu, item) => {
-        filterTags.forEach(filterTag => {
-            if (item.tags && item.tags.indexOf(filterTag) > -1) {
-                itemsAccu[item.id] = item;
-            }
-        });
-
-        return itemsAccu;
-    }, {});
-    return filteredItems;
-};
-
 // Async Action
 export const fetchItemsAndUsers = () => dispatch => {
     dispatch(getItemsLoading());
@@ -81,7 +66,7 @@ export default (
     state = {
         isLoading: false,
         items: {},
-        filteredItems: {},
+        tags: [],
         error: ''
     },
     action
@@ -103,13 +88,9 @@ export default (
     }
 
     case FILTER_ITEMS: {
-        const filtered = filterHelperFunction(
-            action.payload.items,
-            action.payload.tags
-        );
         return {
             ...state,
-            filteredItems: filtered,
+            tags: action.payload.tags,
             isLoading: false
         };
     }

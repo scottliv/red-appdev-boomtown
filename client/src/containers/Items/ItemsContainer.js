@@ -13,22 +13,39 @@ class ItemsContainer extends Component {
         this.props.dispatch(fetchItemsAndUsers());
     }
 
+    filterHelperFunction = (items, filterTags) => {
+        const filteredItems = Object.values(items).reduce((itemsAccu, item) => {
+            filterTags.forEach(filterTag => {
+                if (item.tags && item.tags.indexOf(filterTag) > -1) {
+                    itemsAccu[item.id] = item;
+                }
+            });
+
+            return itemsAccu;
+        }, {});
+        return filteredItems;
+    };
+
     render() {
         console.log(this.props);
         if (this.props.isLoading) return <Loader />;
-        return this.props.filtered &&
-            Object.keys(this.props.filtered).length ? (
-                <ItemCardList items={this.props.filtered} />
-            ) : (
-                <ItemCardList items={this.props.items} />
-            );
+        return this.props.tags && Object.keys(this.props.tags).length ? (
+            <ItemCardList
+                items={this.filterHelperFunction(
+                    this.props.items,
+                    this.props.tags
+                )}
+            />
+        ) : (
+            <ItemCardList items={this.props.items} />
+        );
     }
 }
 
 const mapStateToProps = state => ({
     isLoading: state.items.isLoading,
     items: state.items.items,
-    filtered: state.items.filteredItems,
+    tags: state.items.tags,
     error: state.items.error
 });
 

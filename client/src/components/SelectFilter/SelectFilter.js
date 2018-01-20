@@ -28,16 +28,8 @@ const menuItems = [
     }
 ];
 class SelectFilter extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            selected: []
-        };
-    }
-
     handleChange = (event, index, selected) => {
         this.props.dispatch(filterItems(this.props.items, selected));
-        this.setState({ selected });
     };
 
     selectionRenderer = selected => {
@@ -45,7 +37,7 @@ class SelectFilter extends React.Component {
         case 0:
             return '';
         case 1:
-            return 'One tag selected';
+            return `${this.props.tags[0]}`;
         default:
             return `${selected.length} tags selected`;
         }
@@ -54,7 +46,7 @@ class SelectFilter extends React.Component {
     menuItemGenerator(items) {
         return items.map(item => (
             <MenuItem
-                checked={this.state.selected.indexOf(item.value) > -1}
+                checked={this.props.tags.indexOf(item.value) > -1}
                 insetChildren
                 key={item.key}
                 value={item.value}
@@ -66,7 +58,7 @@ class SelectFilter extends React.Component {
     render() {
         return (
             <SelectField
-                value={this.state.selected}
+                value={this.props.tags}
                 onChange={this.handleChange}
                 multiple
                 selectionRenderer={this.selectionRenderer}
@@ -82,6 +74,7 @@ const mapStateToProps = state => ({
     isLoading: state.items.isLoading,
     items: state.items.items,
     filtered: state.items.filteredItems,
+    tags: state.items.tags,
     error: state.items.error
 });
 

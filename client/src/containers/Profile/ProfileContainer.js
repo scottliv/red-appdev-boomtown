@@ -7,15 +7,8 @@ import { fetchProfile } from '../../redux/modules/profile';
 class ProfileContainer extends Component {
     static propTypes = {};
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            userid: this.props.match.params.userid
-        };
-    }
-
     componentDidMount() {
-        this.props.dispatch(fetchProfile(this.state.userid));
+        this.props.dispatch(fetchProfile(this.props.match.params.userid));
     }
     render() {
         if (this.props.isLoading) return <p>Loading</p>;
