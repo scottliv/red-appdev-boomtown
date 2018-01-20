@@ -15,9 +15,9 @@ const getItemsError = error => ({
     payload: error
 });
 
-export const filterItems = (items, tags) => ({
+export const filterItems = tags => ({
     type: FILTER_ITEMS,
-    payload: { items, tags }
+    payload: tags
 });
 
 // Async Action
@@ -90,7 +90,7 @@ export default (
     case FILTER_ITEMS: {
         return {
             ...state,
-            tags: action.payload.tags,
+            tags: action.payload,
             isLoading: false
         };
     }

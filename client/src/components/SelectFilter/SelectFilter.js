@@ -29,7 +29,7 @@ const menuItems = [
 ];
 class SelectFilter extends React.Component {
     handleChange = (event, index, selected) => {
-        this.props.dispatch(filterItems(this.props.items, selected));
+        this.props.dispatch(filterItems(selected));
     };
 
     selectionRenderer = selected => {

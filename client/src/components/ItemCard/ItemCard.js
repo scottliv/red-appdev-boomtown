@@ -15,8 +15,10 @@ import {
     Link,
     Redirect
 } from 'react-router-dom';
-import Profile from '../../containers/Profile';
+import RaisedButton from 'material-ui/RaisedButton';
 import Gravatar from 'react-gravatar';
+
+import Profile from '../../containers/Profile';
 import styles from './styles';
 
 const ItemCard = ({ item }) => (
@@ -51,6 +53,13 @@ const ItemCard = ({ item }) => (
 
             <CardTitle title={item.title} subtitle={item.tags} />
             <CardText>{item.description}</CardText>
+            {!item.borrower ? (
+                <CardActions>
+                    <RaisedButton label="Borrow" secondary />
+                </CardActions>
+            ) : (
+                ''
+            )}
         </Card>
     </div>
 );

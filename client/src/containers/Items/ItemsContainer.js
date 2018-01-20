@@ -27,7 +27,6 @@ class ItemsContainer extends Component {
     };
 
     render() {
-        console.log(this.props);
         if (this.props.isLoading) return <Loader />;
         return this.props.tags && Object.keys(this.props.tags).length ? (
             <ItemCardList
