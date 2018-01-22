@@ -65,6 +65,7 @@ export const fetchItemsAndUsers = () => dispatch => {
 export default (
     state = {
         isLoading: false,
+        userLoggedIn: 'eEvh1WUF5nb5eeUksUQb3Ph0kOU2',
         items: {},
         tags: [],
         error: ''

@@ -9,12 +9,16 @@ const masonryOptions = {
     itemSelector: '.item-card'
 };
 
-const ItemCardList = ({ items }) => (
+const ItemCardList = ({ items, userLoggedIn }) => (
     <div className="item-gallery">
         <Masonry elementType="div" options={masonryOptions}>
             {Object.values(items).map(item => (
                 <div className="item-card" key={item.id}>
-                    <ItemCard key={item.id} item={item} />
+                    <ItemCard
+                        key={item.id}
+                        item={item}
+                        userLoggedIn={userLoggedIn}
+                    />
                 </div>
             ))}
         </Masonry>

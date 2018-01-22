@@ -37,13 +37,16 @@ class ItemsContainer extends Component {
                 )}
             />
         ) : (
-            <ItemCardList items={this.props.items} />
+            <ItemCardList
+                items={this.props.items}
+                userLoggedIn={this.props.userLoggedIn}
+            />
         );
     }
 }
 
 const mapStateToProps = state => ({
-    userLoggedIn: state.profile.userLoggedIn,
+    userLoggedIn: state.items.userLoggedIn,
     isLoading: state.items.isLoading,
     items: state.items.items,
     tags: state.items.tags,
