@@ -1,5 +1,6 @@
 import React from 'react';
 import Moment from 'moment';
+import PropTypes from 'prop-types';
 import {
     Card,
     CardActions,
@@ -8,21 +9,12 @@ import {
     CardTitle,
     CardText
 } from 'material-ui/Card';
-import {
-    BrowserRouter as Router,
-    Route,
-    Switch,
-    Link,
-    Redirect
-} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import RaisedButton from 'material-ui/RaisedButton';
 import Gravatar from 'react-gravatar';
-
-import Profile from '../../containers/Profile';
 import styles from './styles';
 
 const ItemCard = ({ item, userLoggedIn }) => {
-    console.log(userLoggedIn);
     let borrowerInfo = '';
     if (item.borrower && item.itemowner.id === userLoggedIn) {
         borrowerInfo = (
@@ -66,6 +58,11 @@ const ItemCard = ({ item, userLoggedIn }) => {
             </Card>
         </div>
     );
+};
+
+ItemCard.propTypes = {
+    item: PropTypes.object.isRequired,
+    userLoggedIn: PropTypes.string.isRequired
 };
 
 export default ItemCard;

@@ -48,7 +48,7 @@ class SelectFilter extends React.Component {
             <MenuItem
                 checked={this.props.tags.indexOf(item.value) > -1}
                 insetChildren
-                key={item.key}
+                key={item.id}
                 value={item.value}
                 primaryText={item.primaryText}
             />

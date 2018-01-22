@@ -41,7 +41,6 @@ const rightElement = () => (
 const HeaderBar = () => (
     <AppBar
         className="headerBar"
-        showMenuIcon={false}
         style={{
             width: '100vw',
             left: 0,

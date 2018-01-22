@@ -15,6 +15,7 @@ class ProfileContainer extends Component {
         return (
             <Profile
                 items={this.props.items}
+                userLoggedIn={this.props.userLoggedIn}
                 currentUser={this.props.currentUser}
                 borrowed={this.props.borrowed}
             />
@@ -27,6 +28,7 @@ const mapStateToProps = state => ({
     items: state.profile.items,
     borrowed: state.profile.borrowed,
     userid: state.profile.userid,
+    userLoggedIn: state.profile.userLoggedIn,
     currentUser: state.profile.currentUser,
     error: state.profile.error
 });

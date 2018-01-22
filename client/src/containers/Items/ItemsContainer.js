@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { fetchItemsAndUsers } from '../../redux/modules/items';
 import ItemCardList from '../../components/ItemCardList/';
 import Loader from '../../components/Loader/';
-import styles from './styles';
 
 class ItemsContainer extends Component {
     static propTypes = {};
@@ -52,5 +52,12 @@ const mapStateToProps = state => ({
     tags: state.items.tags,
     error: state.items.error
 });
+
+ItemsContainer.propTypes = {
+    items: PropTypes.object.isRequired,
+    userLoggedIn: PropTypes.string.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+    tags: PropTypes.array.isRequired
+};
 
 export default connect(mapStateToProps)(ItemsContainer);

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Masonry from 'react-masonry-component';
 import PropTypes from 'prop-types';
 import ItemCard from '../ItemCard';
@@ -26,6 +26,7 @@ const ItemCardList = ({ items, userLoggedIn }) => (
 );
 
 ItemCardList.propTypes = {
-    items: PropTypes.object.isRequired
+    items: PropTypes.object.isRequired,
+    userLoggedIn: PropTypes.string.isRequired
 };
 export default ItemCardList;
