@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import ItemCardList from '../../components/Items';
 import Masonry from 'react-masonry-component';
 import PropTypes from 'prop-types';
-import ItemCardList from '../../components/ItemCardList';
+import ItemCardList from '../ItemCardList';
 import ProfileCard from './ProfileCard';
 // import styles from './styles';
 import styles from './styles.css';
@@ -12,7 +12,7 @@ const masonryOptions = {
     itemSelector: '.item-card'
 };
 
-const Items = ({ items, currentUser, borrowed }) => (
+const Profile = ({ items, currentUser, borrowed }) => (
     <div className="item-gallery">
         <ProfileCard
             items={items}
@@ -23,7 +23,7 @@ const Items = ({ items, currentUser, borrowed }) => (
     </div>
 );
 
-Items.propTypes = {
+Profile.propTypes = {
     items: PropTypes.object.isRequired
 };
-export default Items;
+export default Profile;

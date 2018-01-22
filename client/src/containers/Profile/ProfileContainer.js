@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Profile from './Profile';
+import Profile from '../../components/Profile';
 
 import { fetchProfile } from '../../redux/modules/profile';
 

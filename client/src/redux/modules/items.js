@@ -33,27 +33,27 @@ export const fetchItemsAndUsers = () => dispatch => {
     return Promise.all([items, users])
         .then(response => {
             const [itemsList, userList] = response;
-            const userTable = userList.reduce((obj, user) => {
-                obj[user.id] = user;
-                return obj;
+            const userTable = userList.reduce((userAccu, user) => {
+                userAccu[user.id] = user;
+                return userAccu;
             }, {});
 
-            const combinedItems = itemsList.reduce((obj, item) => {
+            const combinedItems = itemsList.reduce((itemAccu, item) => {
                 const itemOwner = item.itemowner;
                 const itemBorrower = item.borrower;
-                obj[item.id] = item;
+                itemAccu[item.id] = item;
 
-                if (obj[item.id].itemowner === userTable[itemOwner].id) {
-                    obj[item.id].itemowner = userTable[itemOwner];
+                if (itemAccu[item.id].itemowner === userTable[itemOwner].id) {
+                    itemAccu[item.id].itemowner = userTable[itemOwner];
                 }
 
                 if (
-                    obj[item.id].borrower &&
-                    obj[item.id].borrower === userTable[itemBorrower].id
+                    itemAccu[item.id].borrower &&
+                    itemAccu[item.id].borrower === userTable[itemBorrower].id
                 ) {
-                    obj[item.id].borrower = userTable[itemBorrower];
+                    itemAccu[item.id].borrower = userTable[itemBorrower];
                 }
-                return obj;
+                return itemAccu;
             }, {});
             dispatch(getItems(combinedItems));
         })

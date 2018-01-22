@@ -30,6 +30,7 @@ class ItemsContainer extends Component {
         if (this.props.isLoading) return <Loader />;
         return this.props.tags && Object.keys(this.props.tags).length ? (
             <ItemCardList
+                userLoggedIn={this.props.userLoggedIn}
                 items={this.filterHelperFunction(
                     this.props.items,
                     this.props.tags
@@ -42,6 +43,7 @@ class ItemsContainer extends Component {
 }
 
 const mapStateToProps = state => ({
+    userLoggedIn: state.profile.userLoggedIn,
     isLoading: state.items.isLoading,
     items: state.items.items,
     tags: state.items.tags,
