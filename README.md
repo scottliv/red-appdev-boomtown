@@ -1,4 +1,4 @@
-# Boomtown Starter
+# Boomtown
 
 ## Installation
 
@@ -8,12 +8,6 @@ Download the repo, then run:
 cd client && npm install
 ```
 
-## Start-up
+## About
 
-From inside the `client` directory, run:
-
-```bash
-npm run dev
-```
-
-Happy coding :)
+Boomtown is a web application for the sharing economy. The UI is built using react with redux as a state manager. It makes use of the material ui library as well.
