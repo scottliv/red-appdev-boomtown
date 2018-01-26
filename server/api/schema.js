@@ -23,7 +23,7 @@ const typeDefs = `
     imageurl: String
     description: String
     available: Boolean
-    tags: [String]
+    tags: [Tag]
   }
 
   type Query {

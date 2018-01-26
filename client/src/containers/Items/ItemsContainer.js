@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 
 import { fetchItemsAndUsers } from '../../redux/modules/items';
 import ItemCardList from '../../components/ItemCardList/';
@@ -9,9 +11,9 @@ import Loader from '../../components/Loader/';
 class ItemsContainer extends Component {
     static propTypes = {};
 
-    componentDidMount() {
-        this.props.dispatch(fetchItemsAndUsers());
-    }
+    // componentDidMount() {
+    //     this.props.dispatch(fetchItemsAndUsers());
+    // }
 
     filterHelperFunction = (items, filterTags) => {
         const filteredItems = Object.values(items).reduce((itemsAccu, item) => {
@@ -30,7 +32,8 @@ class ItemsContainer extends Component {
     };
 
     render() {
-        if (this.props.isLoading) return <Loader />;
+        const { loading, items } = this.props.data;
+        if (loading) return <Loader />;
         return this.props.tags && Object.keys(this.props.tags).length ? (
             <ItemCardList
                 userLoggedIn={this.props.userLoggedIn}
@@ -41,8 +44,8 @@ class ItemsContainer extends Component {
             />
         ) : (
             <ItemCardList
-                items={this.props.items}
-                userLoggedIn={this.props.userLoggedIn}
+                items={items}
+                // userLoggedIn={this.props.userLoggedIn}
             />
         );
     }
@@ -63,4 +66,27 @@ ItemsContainer.propTypes = {
     tags: PropTypes.array.isRequired
 };
 
-export default connect(mapStateToProps)(ItemsContainer);
+const fetchItems = gql`
+    query fetchItems {
+        items {
+            id
+            title
+            itemowner {
+                id
+            }
+            tags {
+                id
+                title
+            }
+            borrower {
+                id
+            }
+            imageurl
+            description
+            available
+        }
+    }
+`;
+
+export default graphql(fetchItems)(ItemsContainer);
+// export connect(mapStateToProps)(ItemsContainer);

@@ -27,9 +27,8 @@ const resolveFunctions = {
         return fetch(`${USERS_URL}/${item.borrower}`).then(r => r.json());
       }
     },
-    async tags() {
-      const item = await fetch(`${ITEMS_URL}/${item.id}`).then(r => r.json());
-      return item.tags;
+    async tags(item) {
+      return (await fetch(`${ITEMS_URL}/${item.id}`).then(r => r.json())).tags;
     }
   },
   User: {
