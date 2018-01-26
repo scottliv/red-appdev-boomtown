@@ -16,7 +16,10 @@ class ItemsContainer extends Component {
     filterHelperFunction = (items, filterTags) => {
         const filteredItems = Object.values(items).reduce((itemsAccu, item) => {
             filterTags.forEach(filterTag => {
-                if (item.tags && item.tags.indexOf(filterTag) > -1) {
+                if (
+                    item.tags &&
+                    item.tags.map(tag => tag.title).indexOf(filterTag) > -1
+                ) {
                     itemsAccu[item.id] = item;
                 }
             });

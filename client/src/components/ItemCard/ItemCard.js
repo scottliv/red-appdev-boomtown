@@ -46,7 +46,10 @@ const ItemCard = ({ item, userLoggedIn }) => {
                     />
                 </Link>
 
-                <CardTitle title={item.title} subtitle={item.tags} />
+                <CardTitle
+                    title={item.title}
+                    subtitle={item.tags.map(tag => tag.title).join(' ')}
+                />
                 <CardText>{item.description}</CardText>
                 {!item.borrower ? (
                     <CardActions>
