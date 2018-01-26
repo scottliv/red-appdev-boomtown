@@ -37,10 +37,7 @@ class ItemsContainer extends Component {
         return this.props.tags && Object.keys(this.props.tags).length ? (
             <ItemCardList
                 userLoggedIn={this.props.userLoggedIn}
-                items={this.filterHelperFunction(
-                    this.props.items,
-                    this.props.tags
-                )}
+                items={this.filterHelperFunction(items, this.props.tags)}
             />
         ) : (
             <ItemCardList
