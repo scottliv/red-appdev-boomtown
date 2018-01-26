@@ -50,16 +50,12 @@ class ItemsContainer extends Component {
 
 const mapStateToProps = state => ({
     userLoggedIn: state.items.userLoggedIn,
-    isLoading: state.items.isLoading,
-    items: state.items.items,
     tags: state.items.tags,
     error: state.items.error
 });
 
 ItemsContainer.propTypes = {
-    items: PropTypes.object.isRequired,
     userLoggedIn: PropTypes.string.isRequired,
-    isLoading: PropTypes.bool.isRequired,
     tags: PropTypes.array.isRequired
 };
 
@@ -85,5 +81,5 @@ const fetchItems = gql`
     }
 `;
 
-export default graphql(fetchItems)(ItemsContainer);
+export default graphql(fetchItems)(connect(mapStateToProps)(ItemsContainer));
 // export connect(mapStateToProps)(ItemsContainer);

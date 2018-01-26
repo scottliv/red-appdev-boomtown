@@ -18,6 +18,13 @@ const resolveFunctions = {
       return fetch(USERS_URL).then(r => r.json());
     }
   },
+  Mutation: {
+    addItem(root, { newItem: { title } }) {
+      // TODO: save this new item to the database
+
+      return { title };
+    }
+  },
   Item: {
     itemowner(item) {
       return fetch(`${USERS_URL}/${item.itemowner}`).then(r => r.json());

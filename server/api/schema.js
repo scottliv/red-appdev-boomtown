@@ -26,6 +26,27 @@ const typeDefs = `
     tags: [Tag]
   }
 
+  input TagInput {
+    id: ID
+    title: String
+  }
+
+  input AddItemInput {
+    title: String
+    imageurl: String
+    description: String
+    tags: [TagInput]
+  }
+
+  type Mutation {
+    addItem(newItem: AddItemInput) :Item
+
+    updateItem(
+      id: ID
+      borrower: ID
+    ): Item
+  }
+
   type Query {
     items: [Item]
     item(id: ID): Item
