@@ -38,13 +38,15 @@ const typeDefs = `
     tags: [TagInput]
   }
 
+  input UpdateItemInput {
+    id: ID
+    borrower: ID
+  }
+
   type Mutation {
     addItem(newItem: AddItemInput) :Item
 
-    updateItem(
-      id: ID
-      borrower: ID
-    ): Item
+    updateItem(updatedItem: UpdateItemInput): Item
   }
 
   type Query {
@@ -59,3 +61,21 @@ module.exports = makeExecutableSchema({
   typeDefs,
   resolvers
 });
+
+// addItem query
+//mutation newItem(
+//   $title:String,
+//   $imageurl:String,
+//   $description:String,
+//   $tags:[TagInput]
+// ) {
+//   addItem(newItem: {
+//     imageurl:$imageurl
+//     title:$title
+//     description:$description
+//     tags:$tags
+//   }) {
+//     title
+//   }
+
+// }

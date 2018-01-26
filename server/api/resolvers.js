@@ -1,4 +1,5 @@
 const fetch = require("node-fetch");
+const fetchItems = require("./jsonServer");
 
 const ITEMS_URL = "http://localhost:4000/items";
 const USERS_URL = "http://localhost:4000/users";
@@ -6,7 +7,7 @@ const USERS_URL = "http://localhost:4000/users";
 const resolveFunctions = {
   Query: {
     items() {
-      return fetch(ITEMS_URL).then(r => r.json());
+      return fetchItems(ITEMS_URL);
     },
     user(root, { id }) {
       return fetch(`${USERS_URL}/${id}`).then(r => r.json());
@@ -21,8 +22,10 @@ const resolveFunctions = {
   Mutation: {
     addItem(root, { newItem: { title } }) {
       // TODO: save this new item to the database
-
       return { title };
+    },
+    updateItem(root, { updatedItem: { id } }) {
+      return { id };
     }
   },
   Item: {
