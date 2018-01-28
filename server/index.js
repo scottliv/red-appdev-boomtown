@@ -1,17 +1,26 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-
 const { graphqlExpress, graphiqlExpress } = require("apollo-server-express");
-const schema = require("./api/schema"); // Next step!
+
+const schema = require("./api/schema");
+const createLoaders = require("./api/loaders");
+
+const GQL_PORT = process.env.PORT; // This comes from package.json npm start script where PORT is defined
+// Where we will send all of our GraphQL requests
 
 app = express();
 
 app.use("*", cors());
 
-const GQL_PORT = process.env.PORT; // This comes from package.json npm start script where PORT is defined
-// Where we will send all of our GraphQL requests
-app.use("/graphql", bodyParser.json(), graphqlExpress({ schema }));
+app.use(
+  "/graphql",
+  bodyParser.json(),
+  graphqlExpress({
+    schema,
+    context: { loaders: createLoaders() }
+  })
+);
 
 // A route for accessing the GraphiQL tool
 app.use(

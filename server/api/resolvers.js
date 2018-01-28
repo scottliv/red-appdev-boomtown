@@ -1,22 +1,23 @@
 const fetch = require("node-fetch");
-const fetchItems = require("./jsonServer");
+// const loaders = require("./loaders");
+const resolverHelpers = require("./jsonServer");
 
 const ITEMS_URL = "http://localhost:4000/items";
 const USERS_URL = "http://localhost:4000/users";
 
 const resolveFunctions = {
   Query: {
-    items() {
-      return fetchItems(ITEMS_URL);
+    items(root, args, context) {
+      return context.loaders.getAllItems.load(args);
     },
-    user(root, { id }) {
-      return fetch(`${USERS_URL}/${id}`).then(r => r.json());
+    user(root, { id }, context) {
+      return context.loaders.getUserById.load(id);
     },
-    item(root, { id }) {
-      return fetch(`${ITEMS_URL}/${id}`).then(r => r.json());
+    item(root, { id }, context) {
+      return context.loaders.getItemById.load(id);
     },
-    users() {
-      return fetch(USERS_URL).then(r => r.json());
+    users(root, args, context) {
+      return context.loaders.getAllUsers.load(args);
     }
   },
   Mutation: {
@@ -29,16 +30,18 @@ const resolveFunctions = {
     }
   },
   Item: {
-    itemowner(item) {
-      return fetch(`${USERS_URL}/${item.itemowner}`).then(r => r.json());
+    itemowner(item, context) {
+      console.log(item);
+      return resolverHelpers.fetchUser(item.itemowner);
+      // return context.loaders.getUserById.load(item.itemowner);
     },
     borrower(item) {
       if (item.borrower) {
-        return fetch(`${USERS_URL}/${item.borrower}`).then(r => r.json());
+        return resolverHelpers.fetchUser(item.borrower);
       }
     },
     async tags(item) {
-      return (await fetch(`${ITEMS_URL}/${item.id}`).then(r => r.json())).tags;
+      return (await resolverHelpers.fetchItem(item.id)).tags;
     }
   },
   User: {

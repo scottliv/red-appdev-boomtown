@@ -1,10 +1,20 @@
-const DataLoader = require('dataloader');
-const { getUserOwnedItems } = require('./jsonServer');
-export default function() {
+const DataLoader = require("dataloader");
+const resolverHelpers = require("./jsonServer");
+function createLoaders() {
   return {
-    UserOwnedItems: new DataLoader(ids => (
-      Promise.all(ids.map(id => getUserOwnedItems(id));
-    ))),
-    // other data loaders go here...
-  }
-};
+    getAllItems: new DataLoader(ids =>
+      Promise.all(ids.map(id => resolverHelpers.fetchItems()))
+    ),
+    getAllUsers: new DataLoader(ids =>
+      Promise.all(ids.map(id => resolverHelpers.fertchUsers()))
+    ),
+    getItemById: new DataLoader(ids =>
+      Promise.all(ids.map(id => resolverHelpers.fetchItem(id)))
+    ),
+    getUserById: new DataLoader(ids =>
+      Promise.all(ids.map(id => resolverHelpers.fertchUser(id)))
+    )
+  };
+}
+
+module.exports = createLoaders;
