@@ -15,6 +15,9 @@ const resolverHelpers = {
   fetchUser(id) {
     return fetch(`${USERS_URL}/${id}`).then(r => r.json());
   }
+  // fetchItemByOwner(id) {
+  //   return fetch(`${ITEMS_URL}/?itemowner=${id}`).then(r => r.json());
+  // }
 };
 
 module.exports = resolverHelpers;

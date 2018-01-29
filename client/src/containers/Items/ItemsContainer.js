@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
-import { fetchItemsAndUsers } from '../../redux/modules/items';
 import ItemCardList from '../../components/ItemCardList/';
 import Loader from '../../components/Loader/';
 

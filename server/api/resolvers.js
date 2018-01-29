@@ -46,7 +46,9 @@ const resolveFunctions = {
   },
   User: {
     async shareditems(user) {
-      return fetch(`${ITEMS_URL}/?itemowner=${user.id}`).then(r => r.json());
+      return await fetch(`${ITEMS_URL}/?itemowner=${user.id}`).then(r =>
+        r.json()
+      );
     }
   }
 };

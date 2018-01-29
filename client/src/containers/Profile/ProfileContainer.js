@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
+import { graphql, compose, withApollo } from 'react-apollo';
+import gql from 'graphql-tag';
+
 import Profile from '../../components/Profile';
 
 import { fetchProfile } from '../../redux/modules/profile';
@@ -11,7 +15,9 @@ class ProfileContainer extends Component {
         this.props.dispatch(fetchProfile(this.props.match.params.userid));
     }
     render() {
-        if (this.props.isLoading) return <p>Loading</p>;
+        const { loading } = this.props.data;
+        console.log(this.props);
+        if (loading) return <p> Loading </p>;
         return (
             <Profile
                 items={this.props.items}
@@ -33,4 +39,26 @@ const mapStateToProps = state => ({
     error: state.profile.error
 });
 
-export default connect(mapStateToProps)(ProfileContainer);
+const getProfile = gql`
+    query getUserProfile($ID: ID) {
+        user(id: $ID) {
+            id
+            fullname
+            shareditems {
+                id
+            }
+        }
+    }
+`;
+
+export default compose(
+    withApollo,
+    graphql(getProfile, {
+        options: ownProps => ({
+            variables: {
+                ID: ownProps.match.params.userid
+            }
+        })
+    }),
+    connect(mapStateToProps)
+)(ProfileContainer);
