@@ -1,26 +1,38 @@
-const fetch = require("node-fetch");
-module.exports = app => {
-  const ITEMS_URL = `http://localhost:4000/items`;
-  const USERS_URL = `http://localhost:4000/users`;
+const { Client } = require("pg");
 
-  const resolverHelpers = {
-    fetchItems(url) {
-      console.log(url);
-      return fetch(url).then(r => r.json());
+module.exports = async app => {
+  const client = new Client({
+    user: app.get("PGUSER"),
+    host: app.get("PGHOST"),
+    database: app.get("PGDATABASE"),
+    password: app.get("PGPASSWORD"),
+    port: app.get("PGPORT")
+  });
+  await client.connect();
+
+  client.query("SELECT * FROM ITEMS", (err, res) => {
+    console.log(err, res);
+    client.end();
+  });
+  return {
+    getItems() {
+      return new Promise((resolve, reject) => {
+        client.query("SELECT * FROM items", (err, res) => {
+          resolve(res.rows);
+          client.end();
+        });
+      });
     },
-    fetchUsers(url) {
-      return fetch(url).then(r => r.json());
+    getItem(id) {
+      return new Promise((resolve, reject) => {
+        client.query(`SELECT * FROM items WHERE id = ${id}`, (err, res) => {
+          resolve(res.rows);
+          client.end();
+        });
+      });
     },
-    fetchItem(id, url) {
-      return fetch(`${ITEMS_URL}/${id}`).then(r => r.json());
-    },
-    fetchUser(id, url) {
-      return fetch(`${USERS_URL}/${id}`).then(r => r.json());
+    getTags(itemid) {
+      return;
     }
-    // fetchItemByOwner(id) {
-    //   return fetch(`${ITEMS_URL}/?itemowner=${id}`).then(r => r.json());
-    // }
   };
-
-  module.exports = resolverHelpers;
 };

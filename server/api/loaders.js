@@ -1,5 +1,5 @@
 const DataLoader = require("dataloader");
-const jsonResources = require("./resources/jsonResources/jsonServer");
+// Destructure the jsonResource that was passed in index.js
 module.exports = ({
   jsonResources: {
     fetchItems,

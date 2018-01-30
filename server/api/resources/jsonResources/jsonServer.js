@@ -1,3 +1,4 @@
+// This will be called in index.js where the app is created
 const fetch = require("node-fetch");
 
 module.exports = app => {

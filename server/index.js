@@ -5,7 +5,7 @@ const { graphqlExpress, graphiqlExpress } = require("apollo-server-express");
 
 const config = require("./config");
 const typeDefs = require("./api/schema");
-const jsonResources = require("./api/resources/jsonResources/jsonServer");
+
 const createLoaders = require("./api/loaders");
 const initResolvers = require("./api/resolvers");
 const { makeExecutableSchema } = require("graphql-tools");
@@ -13,10 +13,17 @@ const { makeExecutableSchema } = require("graphql-tools");
 app = express();
 config(app);
 
+// calling Resources with app so they have access to app variables
+const jsonResources = require("./api/resources/jsonResources/jsonServer")(app);
+const pgResources = require("./api/resources/postgresResources/postgresResource")(
+  app
+);
+
 const schema = makeExecutableSchema({
   typeDefs,
   resolvers: initResolvers({
-    jsonResources: jsonResources(app)
+    jsonResources,
+    pgResources
   })
 });
 
@@ -29,7 +36,8 @@ app.use(
     schema,
     context: {
       loaders: createLoaders({
-        jsonResources: jsonResources(app)
+        jsonResources,
+        pgResources
       })
     }
   })
