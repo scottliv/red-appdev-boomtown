@@ -7,24 +7,24 @@ import { filterItems } from '../../redux/modules/items';
 
 const menuItems = [
     {
-        value: 'Electronics',
-        primaryText: 'Electronics'
-    },
-    {
-        value: 'Household Items',
+        value: 1,
         primaryText: 'Household Items'
     },
     {
-        value: 'Musical Instruments',
-        primaryText: 'Musical Instruments'
+        value: 2,
+        primaryText: 'Recreational Equipment'
     },
     {
-        value: 'Physical Media',
+        value: 3,
+        primaryText: 'Electronics'
+    },
+    {
+        value: 4,
         primaryText: 'Physical Media'
     },
     {
-        value: 'Recreational Equipment',
-        primaryText: 'Recreational Equipment'
+        value: 5,
+        primaryText: 'Musical Instruments'
     }
 ];
 class SelectFilter extends React.Component {

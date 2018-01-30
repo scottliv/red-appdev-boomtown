@@ -49,7 +49,7 @@
     {
       "id": 4,
       "title": "Hatchet",
-      "description": "Chop things down, show nature who's boss. But be safe—alcoholic beverage not included.",
+      "description": "Chop things down, show nature who''s boss. But be safe—alcoholic beverage not included.",
       "imageurl": "https://firebasestorage.googleapis.com/v0/b/boomtown-dfdd8.appspot.com/o/demo-images%2Fhatchet.jpg?alt=media",
       "tags": [{
         "id": 4,
@@ -63,7 +63,7 @@
     {
       "id": 5,
       "title": "Mix Tape",
-      "description": "What's on it? Who knows! Borrow it and find out. Tape deck not included.",
+      "description": "What''s on it? Who knows! Borrow it and find out. Tape deck not included.",
       "imageurl": "https://firebasestorage.googleapis.com/v0/b/boomtown-dfdd8.appspot.com/o/demo-images%2Fmix-tape.jpg?alt=media",
       "tags": [{
         "id": 6,

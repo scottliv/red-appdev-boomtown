@@ -1,23 +1,31 @@
 const DataLoader = require("dataloader");
-const resolverHelpers = require("./jsonServer");
-function createLoaders() {
+const jsonResources = require("./resources/jsonResources/jsonServer");
+module.exports = ({
+  jsonResources: {
+    fetchItems,
+    fetchItem,
+    fetchUsers,
+    fetchUser,
+    fetchItemByOwner
+  }
+}) => {
   return {
     getAllItems: new DataLoader(ids =>
-      Promise.all(ids.map(id => resolverHelpers.fetchItems()))
+      Promise.all(ids.map(id => fetchItems()))
     ),
     getAllUsers: new DataLoader(ids =>
-      Promise.all(ids.map(id => resolverHelpers.fetchUsers()))
+      Promise.all(ids.map(id => fetchUsers()))
     ),
     getItemById: new DataLoader(ids =>
-      Promise.all(ids.map(id => resolverHelpers.fetchItem(id)))
+      Promise.all(ids.map(id => fetchItem(id)))
     ),
     getUserById: new DataLoader(ids =>
-      Promise.all(ids.map(id => resolverHelpers.fetchUser(id)))
+      Promise.all(ids.map(id => fetchUser(id)))
+    ),
+    getItemByOwner: new DataLoader(ids =>
+      Promise.all(ids.map(id => fetchItemByOwner(id)))
     )
-    // getItemByOwner: new DataLoader(ids =>
-    //   Promise.all(ids.map(id => resolverHelpers.fetchItemByOwner(id)))
-    // )
   };
-}
+};
 
-module.exports = createLoaders;
+// module.exports = createLoaders;

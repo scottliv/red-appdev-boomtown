@@ -3,13 +3,22 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const { graphqlExpress, graphiqlExpress } = require("apollo-server-express");
 
-const schema = require("./api/schema");
+const config = require("./config");
+const typeDefs = require("./api/schema");
+const jsonResources = require("./api/resources/jsonResources/jsonServer");
 const createLoaders = require("./api/loaders");
-
-const GQL_PORT = process.env.PORT; // This comes from package.json npm start script where PORT is defined
-// Where we will send all of our GraphQL requests
+const initResolvers = require("./api/resolvers");
+const { makeExecutableSchema } = require("graphql-tools");
 
 app = express();
+config(app);
+
+const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers: initResolvers({
+    jsonResources: jsonResources(app)
+  })
+});
 
 app.use("*", cors());
 
@@ -18,7 +27,11 @@ app.use(
   bodyParser.json(),
   graphqlExpress({
     schema,
-    context: { loaders: createLoaders() }
+    context: {
+      loaders: createLoaders({
+        jsonResources: jsonResources(app)
+      })
+    }
   })
 );
 
@@ -30,6 +43,8 @@ app.use(
   })
 );
 
-app.listen(GQL_PORT, () =>
-  console.log(`GraphQL is now running on http://localhost:${GQL_PORT}/graphql`)
+app.listen(app.get("PORT"), () =>
+  console.log(
+    `GraphQL is now running on http://localhost:${app.get("PORT")}/graphql`
+  )
 );

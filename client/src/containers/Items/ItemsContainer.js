@@ -10,16 +10,12 @@ import Loader from '../../components/Loader/';
 class ItemsContainer extends Component {
     static propTypes = {};
 
-    // componentDidMount() {
-    //     this.props.dispatch(fetchItemsAndUsers());
-    // }
-
     filterHelperFunction = (items, filterTags) => {
         const filteredItems = Object.values(items).reduce((itemsAccu, item) => {
             filterTags.forEach(filterTag => {
                 if (
                     item.tags &&
-                    item.tags.map(tag => tag.title).indexOf(filterTag) > -1
+                    item.tags.map(tag => Number(tag.id)).indexOf(filterTag) > -1
                 ) {
                     itemsAccu[item.id] = item;
                 }
@@ -41,7 +37,7 @@ class ItemsContainer extends Component {
         ) : (
             <ItemCardList
                 items={items}
-                // userLoggedIn={this.props.userLoggedIn}
+                userLoggedIn={this.props.userLoggedIn}
             />
         );
     }
