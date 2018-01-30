@@ -3,7 +3,8 @@ const fetch = require("node-fetch");
 // const resolverHelpers = require("./resources/jsonResources/jsonServer");
 
 module.exports = ({
-  jsonResources: { fetchItem, fetchUser, fetchItemByOwner }
+  jsonResources: { fetchItem, fetchUser, fetchItemByOwner },
+  pgResources: { getTags }
 }) => {
   return {
     Query: {
@@ -38,8 +39,8 @@ module.exports = ({
           return fetchUser(item.borrower);
         }
       },
-      async tags(item) {
-        return (await fetchItem(item.id)).tags;
+      tags(item) {
+        return getTags(item.id);
       }
     },
     User: {

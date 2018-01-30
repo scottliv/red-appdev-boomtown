@@ -7,12 +7,11 @@ module.exports = ({
     fetchUsers,
     fetchUser,
     fetchItemByOwner
-  }
+  },
+  pgResources: { getItems }
 }) => {
   return {
-    getAllItems: new DataLoader(ids =>
-      Promise.all(ids.map(id => fetchItems()))
-    ),
+    getAllItems: new DataLoader(ids => Promise.all(ids.map(id => getItems()))),
     getAllUsers: new DataLoader(ids =>
       Promise.all(ids.map(id => fetchUsers()))
     ),
