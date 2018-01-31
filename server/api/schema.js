@@ -20,7 +20,7 @@ const typeDefs = `
     imageurl: String
     description: String
     available: Boolean
-    tags: [Tag]
+    tags(id: ID): [Tag]
   }
 
   input TagInput {
@@ -51,6 +51,7 @@ const typeDefs = `
     item(id: ID): Item
     users: [User]
     user(id: ID): User
+    tag(id: ID): Tag
   }
 `;
 

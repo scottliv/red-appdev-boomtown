@@ -18,7 +18,9 @@ const jsonResources = require("./api/resources/jsonResources/jsonServer")(app);
 const pgResources = require("./api/resources/postgresResources/postgresResource");
 
 // pgResources returns a promise so the start app gets called once the database is connected and pgResources returns
-pgResources(app).then(pgResources => start(pgResources));
+pgResources(app)
+  .then(pgResources => start(pgResources))
+  .catch(error => error);
 
 function start(pgResources) {
   const schema = makeExecutableSchema({

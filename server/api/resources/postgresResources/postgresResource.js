@@ -14,6 +14,9 @@ module.exports = async app => {
     getItems() {
       return new Promise((resolve, reject) => {
         client.query("SELECT * FROM items", (err, res) => {
+          if (err) {
+            reject(err);
+          }
           resolve(res.rows);
         });
       });
@@ -21,6 +24,9 @@ module.exports = async app => {
     getItem(id) {
       return new Promise((resolve, reject) => {
         client.query("SELECT * FROM items WHERE id = $1", [id], (err, res) => {
+          if (err) {
+            reject(err);
+          }
           resolve(res.rows);
         });
       });
@@ -33,6 +39,9 @@ module.exports = async app => {
             WHERE itemtags.itemid = $1`,
           [itemid],
           (err, res) => {
+            if (err) {
+              reject(err);
+            }
             resolve(res.rows);
           }
         );

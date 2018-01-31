@@ -8,7 +8,7 @@ module.exports = ({
     fetchUser,
     fetchItemByOwner
   },
-  pgResources: { getItems }
+  pgResources: { getItems, getTags }
 }) => {
   return {
     getAllItems: new DataLoader(ids => Promise.all(ids.map(id => getItems()))),
@@ -23,7 +23,8 @@ module.exports = ({
     ),
     getItemByOwner: new DataLoader(ids =>
       Promise.all(ids.map(id => fetchItemByOwner(id)))
-    )
+    ),
+    getItemTags: new DataLoader(ids => Promise.all(ids.map(id => getTags(id))))
   };
 };
 

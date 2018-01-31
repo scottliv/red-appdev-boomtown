@@ -19,6 +19,9 @@ module.exports = ({
       },
       users(root, args, context) {
         return context.loaders.getAllUsers.load(args);
+      },
+      tag(root, { id }, context) {
+        return context.loaders.getItemTags.load(id);
       }
     },
     Mutation: {
@@ -39,8 +42,9 @@ module.exports = ({
           return fetchUser(item.borrower);
         }
       },
-      tags(item) {
-        return getTags(item.id);
+      tags({ id }, args, context) {
+        console.log(id);
+        return context.loaders.getItemTags.load(id);
       }
     },
     User: {
