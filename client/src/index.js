@@ -20,6 +20,7 @@ import Items from './containers/Items';
 import Profile from './containers/Profile';
 import Share from './containers/Share';
 
+// Initialize Firebase
 const Boomtown = () => (
     <MuiThemeProvider muiTheme={muiTheme}>
         <ApolloProvider client={client}>
