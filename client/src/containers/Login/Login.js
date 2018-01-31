@@ -11,7 +11,7 @@ import logo from '../../images/boomtown-logo.svg';
 import bottomLeft from '../../images/home-bl.svg';
 import topRight from '../../images/home-tr.svg';
 
-const Login = ({ login, formEmailState, formPasswordState }) => (
+const Login = ({ login, formEmailState, formPasswordState, loginError }) => (
     <div className="page login">
         <div className="logo">
             <img src={logo} alt="Boomtown Logo" />
@@ -35,12 +35,14 @@ const Login = ({ login, formEmailState, formPasswordState }) => (
                         <div>
                             <ValidatedTextField
                                 label="Email"
+                                type="email"
                                 userInput={formEmailState}
                             />
                         </div>
                         <div>
                             <ValidatedTextField
                                 label="Password"
+                                type="password"
                                 userInput={formPasswordState}
                             />
                         </div>
@@ -54,6 +56,7 @@ const Login = ({ login, formEmailState, formPasswordState }) => (
                         </RaisedButton>
                     </form>
                 </div>
+                <div>{loginError.message}</div>
             </Paper>
         </div>
     </div>

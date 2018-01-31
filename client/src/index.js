@@ -15,10 +15,21 @@ import muiTheme from './config/theme';
 
 import Layout from './components/Layout';
 
+import PrivateRoute from './components/PrivateRoute';
 import Login from './containers/Login';
 import Items from './containers/Items';
 import Profile from './containers/Profile';
 import Share from './containers/Share';
+import { firebaseAuth } from './config/firebaseConfig';
+import { updateAuthState } from './redux/modules/auth';
+
+firebaseAuth.onAuthStateChanged(user => {
+    if (user) {
+        store.dispatch(updateAuthState(user));
+    } else {
+        store.dispatch(updateAuthState(false));
+    }
+});
 
 // Initialize Firebase
 const Boomtown = () => (
@@ -31,18 +42,22 @@ const Boomtown = () => (
                         <Layout>
                             <div className="page">
                                 <Switch>
-                                    <Route exact path="/" component={Items} />
-                                    <Route
+                                    <PrivateRoute
+                                        exact
+                                        path="/"
+                                        component={Items}
+                                    />
+                                    <PrivateRoute
                                         exact
                                         path="/profile/"
                                         component={Profile}
                                     />
-                                    <Route
+                                    <PrivateRoute
                                         exact
                                         path="/profile/:userid"
                                         component={Profile}
                                     />
-                                    <Route
+                                    <PrivateRoute
                                         exact
                                         path="/share"
                                         component={Share}

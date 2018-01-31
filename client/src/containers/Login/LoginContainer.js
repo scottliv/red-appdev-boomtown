@@ -12,7 +12,8 @@ class LoginContainer extends Component {
         super(props);
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            loginError: { message: '' }
         };
         this.formEmailState = this.formEmailState.bind(this);
         this.formPasswordState = this.formPasswordState.bind(this);
@@ -43,6 +44,7 @@ class LoginContainer extends Component {
                     const errorCode = error.code;
                     const errorMessage = error.message;
                     console.log(errorCode, errorMessage);
+                    this.setState({ loginError: error });
                     // ...
                 });
         }
@@ -54,6 +56,7 @@ class LoginContainer extends Component {
                 login={this.login}
                 formEmailState={this.formEmailState}
                 formPasswordState={this.formPasswordState}
+                loginError={this.state.loginError}
             />
         );
     }
