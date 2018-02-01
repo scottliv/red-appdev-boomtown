@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, Redirect } from 'react-router-dom';
+import { firebaseAuth } from './../../config/firebaseConfig';
 
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -32,6 +33,14 @@ const rightElement = () => (
                     style={{ margin: '0' }}
                     label="Logout"
                     secondary
+                    onClick={() => {
+                        firebaseAuth
+                            .signOut()
+                            .then(() => {
+                                // Sign-out successful.
+                            })
+                            .catch(error => <div> {error.message} </div>);
+                    }}
                 />
             </Link>
         </div>
