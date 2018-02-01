@@ -20,26 +20,13 @@ export const filterItems = tags => ({
 
 export default (
     state = {
-        // isLoading: false,
         userLoggedIn: 'eEvh1WUF5nb5eeUksUQb3Ph0kOU2',
-        // items: {},
         tags: [],
         error: ''
     },
     action
 ) => {
     switch (action.type) {
-    // case GET_ITEMS_LOADING: {
-    //     return { ...state, isLoading: true, error: '' };
-    // }
-    // case GET_ITEMS: {
-    //     return {
-    //         ...state,
-    //         isLoading: false,
-    //         items: action.payload,
-    //         error: ''
-    //     };
-    // }
     case GET_ITEMS_ERROR: {
         return { ...state, isLoading: false, error: action.payload };
     }

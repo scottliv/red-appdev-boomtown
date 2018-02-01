@@ -1,18 +1,20 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import HeaderBar from '../../components/HeaderBar';
 
 import './styles.css';
 
-const Layout = ({ children }) => (
-    <div className="appContentWrapper">
-        <div className="appHeader">
-            <HeaderBar />{' '}
+const Layout = ({ children, userLoading, authenticated }) =>
+    (userLoading ? (
+        <div>'Loading'</div>
+    ) : (
+        <div className="appContentWrapper">
+            <div className="appHeader">{authenticated && <HeaderBar />}</div>
+            <div className="appContent">{children}</div>
+            {/* And a footer here, but not on the login route... */}
         </div>
-        <div className="appContent">{children}</div>
-        {/* And a footer here, but not on the login route... */}
-    </div>
-);
+    ));
 
 Layout.defaultProps = {
     children: null
@@ -22,4 +24,10 @@ Layout.propTypes = {
     children: PropTypes.node
 };
 
-export default Layout;
+const mapStateToProps = state => ({
+    authenticated: state.auth.authenticated,
+    userLoading: state.auth.userLoading
+});
+
+// Fancy Map state to props!
+export default connect(mapStateToProps)(Layout);

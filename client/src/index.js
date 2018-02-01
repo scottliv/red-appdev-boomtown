@@ -21,7 +21,18 @@ import Items from './containers/Items';
 import Profile from './containers/Profile';
 import Share from './containers/Share';
 import { firebaseAuth } from './config/firebaseConfig';
-import { updateAuthState } from './redux/modules/auth';
+import { updateAuthState, userLoading } from './redux/modules/auth';
+
+let gotUser = false;
+
+store.subscribe(() => {
+    const values = store.getState();
+    console.log(values);
+    if (values.auth.authenticated !== 'LOADING_USER' && !gotUser) {
+        gotUser = true;
+        store.dispatch(userLoading(false));
+    }
+});
 
 firebaseAuth.onAuthStateChanged(user => {
     if (user) {
@@ -31,41 +42,38 @@ firebaseAuth.onAuthStateChanged(user => {
     }
 });
 
-// Initialize Firebase
 const Boomtown = () => (
     <MuiThemeProvider muiTheme={muiTheme}>
         <ApolloProvider client={client}>
             <Provider store={store}>
                 <Router>
-                    <div>
-                        <Route exact path="/login" component={Login} />
-                        <Layout>
-                            <div className="page">
-                                <Switch>
-                                    <PrivateRoute
-                                        exact
-                                        path="/"
-                                        component={Items}
-                                    />
-                                    <PrivateRoute
-                                        exact
-                                        path="/profile/"
-                                        component={Profile}
-                                    />
-                                    <PrivateRoute
-                                        exact
-                                        path="/profile/:userid"
-                                        component={Profile}
-                                    />
-                                    <PrivateRoute
-                                        exact
-                                        path="/share"
-                                        component={Share}
-                                    />
-                                </Switch>
-                            </div>
-                        </Layout>
-                    </div>
+                    <Layout>
+                        <div className="page">
+                            <Switch>
+                                <Route exact path="/login" component={Login} />
+                                <PrivateRoute
+                                    exact
+                                    path="/"
+                                    component={Items}
+                                />
+                                <PrivateRoute
+                                    exact
+                                    path="/profile/"
+                                    component={Profile}
+                                />
+                                <PrivateRoute
+                                    exact
+                                    path="/profile/:userid"
+                                    component={Profile}
+                                />
+                                <PrivateRoute
+                                    exact
+                                    path="/share"
+                                    component={Share}
+                                />
+                            </Switch>
+                        </div>
+                    </Layout>
                 </Router>
             </Provider>
         </ApolloProvider>
