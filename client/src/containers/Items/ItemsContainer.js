@@ -15,7 +15,9 @@ class ItemsContainer extends Component {
             filterTags.forEach(filterTag => {
                 if (
                     item.tags &&
-                    item.tags.map(tag => Number(tag.id)).indexOf(filterTag) > -1
+                    item.tags
+                        .map(tag => Number(tag.id))
+                        .indexOf(Number(filterTag)) > -1
                 ) {
                     itemsAccu[item.id] = item;
                 }

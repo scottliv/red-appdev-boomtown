@@ -52,6 +52,7 @@ const typeDefs = `
     users: [User]
     user(id: ID): User
     tag(id: ID): Tag
+    tags: [Tag]
   }
 `;
 

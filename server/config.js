@@ -10,5 +10,13 @@ module.exports = app => {
   app.set("PGHOST", process.env.PGHOST || "localhost");
   app.set("PGPORT", process.env.PGPORT || "5432");
   app.set("PORT", process.env.PORT || "3002");
-  app.set("JSON_PORT", "4000");
+
+  app.set("FIREBASE_CONFIG", {
+    apiKey: "AIzaSyAoaZmhUmdogNAugEG_2TJQNZXmJ2Pwbx4",
+    authDomain: "boomtown-fd020.firebaseapp.com",
+    databaseURL: "https://boomtown-fd020.firebaseio.com",
+    projectId: "boomtown-fd020",
+    storageBucket: "boomtown-fd020.appspot.com",
+    messagingSenderId: "419380082123"
+  });
 };

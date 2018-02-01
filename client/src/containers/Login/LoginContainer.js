@@ -35,7 +35,6 @@ class LoginContainer extends Component {
                 )
                 .then(user => {
                     if (user) {
-                        console.log(user);
                         this.props.history.push('/');
                     }
                 })

@@ -27,7 +27,6 @@ let gotUser = false;
 
 store.subscribe(() => {
     const values = store.getState();
-    console.log(values);
     if (values.auth.authenticated !== 'LOADING_USER' && !gotUser) {
         gotUser = true;
         store.dispatch(userLoading(false));

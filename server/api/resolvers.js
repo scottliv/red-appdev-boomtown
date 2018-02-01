@@ -3,8 +3,8 @@ const fetch = require("node-fetch");
 // const resolverHelpers = require("./resources/jsonResources/jsonServer");
 
 module.exports = ({
-  jsonResources: { fetchItem, fetchUser, fetchItemByOwner },
-  pgResources: { getTags }
+  firebaseResource: { getUser, getUsers },
+  pgResource: { getTags, getSharedItems, getAllTags }
 }) => {
   return {
     Query: {
@@ -22,6 +22,9 @@ module.exports = ({
       },
       tag(root, { id }, context) {
         return context.loaders.getItemTags.load(id);
+      },
+      tags() {
+        return getAllTags();
       }
     },
     Mutation: {
@@ -34,22 +37,21 @@ module.exports = ({
       }
     },
     Item: {
-      itemowner(item) {
-        return fetchUser(item.itemowner);
+      itemowner({ itemowner }, args, context) {
+        return context.loaders.getUserById.load(itemowner);
       },
-      borrower(item) {
-        if (item.borrower) {
-          return fetchUser(item.borrower);
+      borrower({ borrower }, args, context) {
+        if (borrower) {
+          return context.loaders.getUserById.load(borrower);
         }
       },
       tags({ id }, args, context) {
-        console.log(id);
         return context.loaders.getItemTags.load(id);
       }
     },
     User: {
-      async shareditems(user) {
-        return fetchItemByOwner(user.id);
+      shareditems(user) {
+        return getSharedItems(user.id);
       }
     }
   };

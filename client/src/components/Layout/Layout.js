@@ -7,7 +7,7 @@ import './styles.css';
 
 const Layout = ({ children, userLoading, authenticated }) =>
     (userLoading ? (
-        <div>'Loading'</div>
+        <div>Loading</div>
     ) : (
         <div className="appContentWrapper">
             <div className="appHeader">{authenticated && <HeaderBar />}</div>

@@ -2,31 +2,33 @@ import React from 'react';
 import MenuItem from 'material-ui/MenuItem';
 import SelectField from 'material-ui/SelectField';
 import { connect } from 'react-redux';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 
 import { filterItems } from '../../redux/modules/items';
 
-const menuItems = [
-    {
-        value: 1,
-        primaryText: 'Household Items'
-    },
-    {
-        value: 2,
-        primaryText: 'Recreational Equipment'
-    },
-    {
-        value: 3,
-        primaryText: 'Electronics'
-    },
-    {
-        value: 4,
-        primaryText: 'Physical Media'
-    },
-    {
-        value: 5,
-        primaryText: 'Musical Instruments'
-    }
-];
+// const menuItems = [
+//     {
+//         value: 1,
+//         primaryText: 'Household Items'
+//     },
+//     {
+//         value: 2,
+//         primaryText: 'Recreational Equipment'
+//     },
+//     {
+//         value: 3,
+//         primaryText: 'Electronics'
+//     },
+//     {
+//         value: 4,
+//         primaryText: 'Physical Media'
+//     },
+//     {
+//         value: 5,
+//         primaryText: 'Musical Instruments'
+//     }
+// ];
 class SelectFilter extends React.Component {
     handleChange = (event, index, selected) => {
         this.props.dispatch(filterItems(selected));
@@ -37,7 +39,7 @@ class SelectFilter extends React.Component {
         case 0:
             return '';
         case 1:
-            return `${this.props.tags[0]}`;
+            return selected;
         default:
             return `${selected.length} tags selected`;
         }
@@ -46,16 +48,18 @@ class SelectFilter extends React.Component {
     menuItemGenerator(items) {
         return items.map(item => (
             <MenuItem
-                checked={this.props.tags.indexOf(item.value) > -1}
+                checked={this.props.tags.indexOf(item.id) > -1}
                 insetChildren
                 key={item.id}
-                value={item.value}
-                primaryText={item.primaryText}
+                value={item.id}
+                primaryText={item.title}
             />
         ));
     }
 
     render() {
+        const { tags } = this.props.data;
+        console.log(tags);
         return (
             <SelectField
                 value={this.props.tags}
@@ -64,7 +68,7 @@ class SelectFilter extends React.Component {
                 selectionRenderer={this.selectionRenderer}
                 floatingLabelText="Filter by tag"
             >
-                {this.menuItemGenerator(menuItems)}
+                {this.menuItemGenerator(tags || [])}
             </SelectField>
         );
     }
@@ -78,4 +82,13 @@ const mapStateToProps = state => ({
     error: state.items.error
 });
 
-export default connect(mapStateToProps)(SelectFilter);
+const fetchTags = gql`
+    query fetchTags {
+        tags {
+            id
+            title
+        }
+    }
+`;
+
+export default graphql(fetchTags)(connect(mapStateToProps)(SelectFilter));

@@ -14,20 +14,22 @@ app = express();
 config(app);
 
 // calling Resources with app so they have access to app variables
-const jsonResources = require("./api/resources/jsonResources/jsonServer")(app);
-const pgResources = require("./api/resources/postgresResources/postgresResource");
+const firebaseResource = require("./api/resources/firebaseResources/firebaseResource")(
+  app
+);
+const pgResource = require("./api/resources/postgresResources/postgresResource");
 
-// pgResources returns a promise so the start app gets called once the database is connected and pgResources returns
-pgResources(app)
-  .then(pgResources => start(pgResources))
+// pgResource returns a promise so the start app gets called once the database is connected and pgResource returns
+pgResource(app)
+  .then(pgResource => start(pgResource))
   .catch(error => error);
 
-function start(pgResources) {
+function start(pgResource) {
   const schema = makeExecutableSchema({
     typeDefs,
     resolvers: initResolvers({
-      jsonResources,
-      pgResources
+      firebaseResource,
+      pgResource
     })
   });
 
@@ -40,8 +42,8 @@ function start(pgResources) {
       schema,
       context: {
         loaders: createLoaders({
-          jsonResources,
-          pgResources
+          firebaseResource,
+          pgResource
         })
       }
     })

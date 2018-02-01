@@ -11,6 +11,17 @@ module.exports = async app => {
   await client.connect();
 
   return {
+    getSharedItems(userid) {
+      return new Promise((resolve, reject) => {
+        client.query(
+          "SELECT * FROM items WHERE itemowner = $1",
+          [userid],
+          (err, res) => {
+            resolve(res.rows);
+          }
+        );
+      });
+    },
     getItems() {
       return new Promise((resolve, reject) => {
         client.query("SELECT * FROM items", (err, res) => {
@@ -27,6 +38,7 @@ module.exports = async app => {
           if (err) {
             reject(err);
           }
+          console.log(res.rows);
           resolve(res.rows);
         });
       });
@@ -45,6 +57,13 @@ module.exports = async app => {
             resolve(res.rows);
           }
         );
+      });
+    },
+    getAllTags() {
+      return new Promise((resolve, reject) => {
+        client.query("SELECT * FROM tags", (err, res) => {
+          resolve(res.rows);
+        });
       });
     }
   };
