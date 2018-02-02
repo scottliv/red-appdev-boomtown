@@ -18,6 +18,7 @@ const typeDefs = `
     itemowner: User
     borrower: User
     imageurl: String
+    created: String
     description: String
     available: Boolean
     tags(id: ID): [Tag]
@@ -25,13 +26,13 @@ const typeDefs = `
 
   input TagInput {
     id: ID
-    title: String
   }
 
   input AddItemInput {
     title: String
     imageurl: String
     description: String
+    itemowner: ID
     tags: [TagInput]
   }
 
@@ -41,7 +42,7 @@ const typeDefs = `
   }
 
   type Mutation {
-    addItem(newItem: AddItemInput) :Item
+    createNewItem(newItem: AddItemInput): Item
 
     updateItem(updatedItem: UpdateItemInput): Item
   }
@@ -59,7 +60,7 @@ const typeDefs = `
 module.exports = typeDefs;
 
 // addItem query
-//mutation newItem(
+// mutation newItem(
 //   $title:String,
 //   $imageurl:String,
 //   $description:String,

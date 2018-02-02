@@ -61,8 +61,11 @@ const fetchItems = gql`
         items {
             id
             title
+            created
             itemowner {
                 id
+                fullname
+                email
             }
             tags {
                 id
@@ -79,4 +82,3 @@ const fetchItems = gql`
 `;
 
 export default graphql(fetchItems)(connect(mapStateToProps)(ItemsContainer));
-// export connect(mapStateToProps)(ItemsContainer);

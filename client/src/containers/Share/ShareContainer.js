@@ -66,63 +66,75 @@ class VerticalLinearStepper extends React.Component {
 
         return (
             <div style={{ maxWidth: 380, maxHeight: 400, margin: 'auto' }}>
-                <Stepper activeStep={stepIndex} orientation="vertical">
-                    <Step>
-                        <StepLabel>Add an image</StepLabel>
-                        <StepContent>
-                            <p>
-                                We Live in a visual culture. Upload an image of
-                                the item you're sharing
-                            </p>
-                            <RaisedButton label="Upload Image">
-                                <input type="file" />
-                            </RaisedButton>
-                            {this.renderStepActions(0)}
-                        </StepContent>
-                    </Step>
-                    <Step>
-                        <StepLabel>Add a Title and Description</StepLabel>
-                        <StepContent>
-                            <p>
-                                Folks need to know what you're sharing. Give
-                                them a clue by adding a title & description.
-                            </p>
-                            <TextField
-                                style={{ marginTop: 0 }}
-                                floatingLabelText="Title"
-                            />
-                            <TextField
-                                style={{ marginTop: 0 }}
-                                floatingLabelText="Description"
-                            />
-                            {this.renderStepActions(1)}
-                        </StepContent>
-                    </Step>
-                    <Step>
-                        <StepLabel>Create an ad</StepLabel>
-                        <StepContent>
-                            <SelectFilter />
-                            {this.renderStepActions(2)}
-                        </StepContent>
-                    </Step>
-                </Stepper>
-                {finished && (
-                    <p style={{ margin: '20px 0', textAlign: 'center' }}>
-                        <a
-                            href="#"
-                            onClick={event => {
-                                event.preventDefault();
-                                this.setState({
-                                    stepIndex: 0,
-                                    finished: false
-                                });
-                            }}
-                        >
-                            Click here
-                        </a>{' '}
-                        to reset the example.
-                    </p>
-                )}
+                <form>
+                    <Stepper activeStep={stepIndex} orientation="vertical">
+                        <Step>
+                            <StepLabel>Add an image</StepLabel>
+                            <StepContent>
+                                <p>
+                                    We Live in a visual culture. Upload an image
+                                    of the item you're sharing
+                                </p>
+                                <RaisedButton label="Upload Image">
+                                    <input
+                                        type="file"
+                                        style={{
+                                            position: 'absolute',
+                                            left: 0,
+                                            top: 0,
+                                            width: '100%',
+                                            height: '100%',
+                                            opacity: 0
+                                        }}
+                                    />
+                                </RaisedButton>
+                                {this.renderStepActions(0)}
+                            </StepContent>
+                        </Step>
+                        <Step>
+                            <StepLabel>Add a Title and Description</StepLabel>
+                            <StepContent>
+                                <p>
+                                    Folks need to know what you're sharing. Give
+                                    them a clue by adding a title & description.
+                                </p>
+                                <TextField
+                                    style={{ marginTop: 0 }}
+                                    floatingLabelText="Title"
+                                />
+                                <TextField
+                                    style={{ marginTop: 0 }}
+                                    floatingLabelText="Description"
+                                />
+                                {this.renderStepActions(1)}
+                            </StepContent>
+                        </Step>
+                        <Step>
+                            <StepLabel>Create an ad</StepLabel>
+                            <StepContent>
+                                <SelectFilter />
+                                {this.renderStepActions(2)}
+                            </StepContent>
+                        </Step>
+                    </Stepper>
+                    {finished && (
+                        <p style={{ margin: '20px 0', textAlign: 'center' }}>
+                            <a
+                                href="#"
+                                onClick={event => {
+                                    event.preventDefault();
+                                    this.setState({
+                                        stepIndex: 0,
+                                        finished: false
+                                    });
+                                }}
+                            >
+                                Click here
+                            </a>{' '}
+                            to reset the example.
+                        </p>
+                    )}
+                </form>
             </div>
         );
     }

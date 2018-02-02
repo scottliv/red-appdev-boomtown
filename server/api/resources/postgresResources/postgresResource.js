@@ -1,5 +1,13 @@
 const { Client } = require("pg");
 
+const generateQueryVariables = tags => {
+  return tags
+    .map((tag, i) => {
+      return `($1, $${i + 2})`;
+    })
+    .join(", ");
+};
+
 module.exports = async app => {
   const client = new Client({
     user: app.get("PGUSER"),
@@ -65,6 +73,36 @@ module.exports = async app => {
           resolve(res.rows);
         });
       });
+    },
+    async createItem({ title, description, imageurl, itemowner, tags }) {
+      const item = [title, description, imageurl, itemowner];
+      tags = tags.map(t => t.id);
+      const itemInsertQuery = `INSERT INTO items(title, description, imageurl, itemowner) 
+                      VALUES($1, $2, $3, $4) RETURNING *`;
+
+      try {
+        await client.query("BEGIN");
+        const itemResult = await client.query(itemInsertQuery, item);
+
+        const tagsInsertQuery = `INSERT INTO itemtags(itemid, tagid) VALUES ${generateQueryVariables(
+          tags
+        )}`;
+        console.log(itemResult.rows[0].id);
+
+        const tagResult = await client.query(tagsInsertQuery, [
+          itemResult.rows[0].id,
+          ...tags
+        ]);
+        await client.query("COMMIT");
+        return itemResult.rows[0];
+      } catch (e) {
+        await client.query("ROLLBACK");
+        throw e;
+      }
+    },
+
+    updateItem(id) {
+      return;
     }
   };
 };

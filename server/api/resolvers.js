@@ -4,7 +4,7 @@ const fetch = require("node-fetch");
 
 module.exports = ({
   firebaseResource: { getUser, getUsers },
-  pgResource: { getTags, getSharedItems, getAllTags }
+  pgResource: { getTags, getSharedItems, getAllTags, createItem }
 }) => {
   return {
     Query: {
@@ -28,9 +28,8 @@ module.exports = ({
       }
     },
     Mutation: {
-      addItem(root, { newItem: { title } }) {
-        // TODO: save this new item to the database
-        return { title };
+      createNewItem(root, { newItem }) {
+        return createItem(newItem);
       },
       updateItem(root, { updatedItem: { id } }) {
         return { id };
