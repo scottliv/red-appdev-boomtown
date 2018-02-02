@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Items from './../Items';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { firebaseAuth } from './../../config/firebaseConfig';
 // import PropTypes from 'prop-types';
 
@@ -13,6 +15,7 @@ class LoginContainer extends Component {
         this.state = {
             email: '',
             password: '',
+            loggedIn: false,
             loginError: { message: '' }
         };
         this.formEmailState = this.formEmailState.bind(this);
@@ -33,11 +36,7 @@ class LoginContainer extends Component {
                     this.state.email,
                     this.state.password
                 )
-                .then(user => {
-                    if (user) {
-                        this.props.history.push('/');
-                    }
-                })
+
                 .catch(error => {
                     // Handle Errors here.
                     const errorCode = error.code;
@@ -50,6 +49,9 @@ class LoginContainer extends Component {
     };
 
     render() {
+        if (this.props.authenticated) {
+            return <Redirect to={{ pathname: '/' }} />;
+        }
         return (
             <Login
                 login={this.login}
@@ -61,4 +63,8 @@ class LoginContainer extends Component {
     }
 }
 
-export default LoginContainer;
+const mapStateToProps = state => ({
+    authenticated: state.auth.authenticated
+});
+
+export default connect(mapStateToProps)(LoginContainer);

@@ -46,9 +46,9 @@ const Boomtown = () => (
         <ApolloProvider client={client}>
             <Provider store={store}>
                 <Router>
-                    <Layout>
-                        <div className="page">
-                            <Switch>
+                    <Switch>
+                        <Layout>
+                            <div className="page">
                                 <Route exact path="/login" component={Login} />
                                 <PrivateRoute
                                     exact
@@ -70,9 +70,9 @@ const Boomtown = () => (
                                     path="/share"
                                     component={Share}
                                 />
-                            </Switch>
-                        </div>
-                    </Layout>
+                            </div>
+                        </Layout>
+                    </Switch>
                 </Router>
             </Provider>
         </ApolloProvider>

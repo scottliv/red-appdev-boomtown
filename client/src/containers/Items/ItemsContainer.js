@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -81,4 +82,6 @@ const fetchItems = gql`
     }
 `;
 
-export default graphql(fetchItems)(connect(mapStateToProps)(ItemsContainer));
+export default withRouter(
+    graphql(fetchItems)(connect(mapStateToProps)(ItemsContainer))
+);

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import HeaderBar from '../../components/HeaderBar';
 
@@ -30,4 +31,4 @@ const mapStateToProps = state => ({
 });
 
 // Fancy Map state to props!
-export default connect(mapStateToProps)(Layout);
+export default withRouter(connect(mapStateToProps)(Layout));
