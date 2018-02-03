@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { graphql, gql, compose } from 'react-apollo';
+import { connect } from 'react-redux';
+import { graphql, compose } from 'react-apollo';
+import gql from 'graphql-tag';
 
 import { firebaseStorage } from './../../config/firebaseConfig';
 import { uploadFile } from './fileUpload';
@@ -13,7 +15,16 @@ class ShareContainer extends Component {
             description: '',
             imageurl: ''
         };
-        this.handleFunctions.imageurl.bind(this);
+        this.handleFunctions.imageurl = this.handleFunctions.imageurl.bind(
+            this
+        );
+        this.handleFunctions.title = this.handleFunctions.title.bind(this);
+        this.handleFunctions.description = this.handleFunctions.description.bind(
+            this
+        );
+        this.handleFunctions.formSubmit = this.handleFunctions.formSubmit.bind(
+            this
+        );
     }
 
     handleFunctions = {
@@ -33,10 +44,21 @@ class ShareContainer extends Component {
                 }
                 if (result.downloadURL) {
                     this.setState({ imageurl: result.downloadURL });
-                    return result.downloadURL;
+                    // return result.downloadURL;
                 }
                 if (result.error) {
                     console.log(result.error);
+                }
+            });
+        },
+        formSubmit({ mutate }) {
+            mutate({
+                variables: {
+                    title: this.state.title,
+                    description: this.state.description,
+                    imageurl: this.state.imageurl,
+                    itemowner: this.props.authenticated.uid,
+                    tags: this.props.tags
                 }
             });
         }
@@ -47,4 +69,34 @@ class ShareContainer extends Component {
     }
 }
 
-export default ShareContainer;
+const mapStateToProps = state => ({
+    userLoggedIn: state.auth.authenticated,
+    tags: state.items.tags,
+    error: state.items.error
+});
+
+const newItemMutation = gql`
+    mutation newItem(
+        $title: String
+        $imageurl: String
+        $description: String
+        $itemowner: ID
+        $tags: [TagInput]
+    ) {
+        addItem(
+            newItem: {
+                imageurl: $imageurl
+                title: $title
+                description: $description
+                itemowner: $itemowner
+                tags: $tags
+            }
+        ) {
+            title
+        }
+    }
+`;
+
+export default graphql(newItemMutation)(
+    connect(mapStateToProps)(ShareContainer)
+);

@@ -24,22 +24,7 @@ class VerticalLinearStepper extends React.Component {
 
     handleNext = () => {
         const { stepIndex } = this.state;
-        switch (stepIndex) {
-        case 0: {
-            break;
-        }
-        case 1: {
-            this.props.handleFunctions.title();
-            break;
-        }
-        case 2: {
-            this.props.handleFunctions.description();
-            break;
-        }
-        default: {
-            return;
-        }
-        }
+
         this.setState({
             stepIndex: stepIndex + 1,
             finished: stepIndex >= 2
@@ -91,7 +76,7 @@ class VerticalLinearStepper extends React.Component {
                             <StepContent>
                                 <p>
                                     We Live in a visual culture. Upload an image
-                                    of the item you're sharing
+                                    of the item you are sharing
                                 </p>
                                 <RaisedButton label="Upload Image">
                                     <input
@@ -125,16 +110,24 @@ class VerticalLinearStepper extends React.Component {
                                 <TextField
                                     style={{ marginTop: 0 }}
                                     floatingLabelText="Title"
+                                    onChange={e =>
+                                        this.props.handleFunctions.title(e)
+                                    }
                                 />
                                 <TextField
                                     style={{ marginTop: 0 }}
                                     floatingLabelText="Description"
+                                    onChange={e =>
+                                        this.props.handleFunctions.description(
+                                            e
+                                        )
+                                    }
                                 />
                                 {this.renderStepActions(1)}
                             </StepContent>
                         </Step>
                         <Step>
-                            <StepLabel>Create an ad</StepLabel>
+                            <StepLabel>Select Tags</StepLabel>
                             <StepContent>
                                 <SelectFilter />
                                 {this.renderStepActions(2)}
