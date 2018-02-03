@@ -24,6 +24,22 @@ class VerticalLinearStepper extends React.Component {
 
     handleNext = () => {
         const { stepIndex } = this.state;
+        switch (stepIndex) {
+        case 0: {
+            break;
+        }
+        case 1: {
+            this.props.handleFunctions.title();
+            break;
+        }
+        case 2: {
+            this.props.handleFunctions.description();
+            break;
+        }
+        default: {
+            return;
+        }
+        }
         this.setState({
             stepIndex: stepIndex + 1,
             finished: stepIndex >= 2
@@ -80,6 +96,11 @@ class VerticalLinearStepper extends React.Component {
                                 <RaisedButton label="Upload Image">
                                     <input
                                         type="file"
+                                        onChange={e => {
+                                            this.props.handleFunctions.imageurl(
+                                                e
+                                            );
+                                        }}
                                         style={{
                                             position: 'absolute',
                                             left: 0,

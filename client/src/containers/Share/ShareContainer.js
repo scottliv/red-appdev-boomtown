@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { graphql, gql, compose } from 'react-apollo';
+
 import { firebaseStorage } from './../../config/firebaseConfig';
 import { uploadFile } from './fileUpload';
 import Share from './Share';
@@ -12,6 +13,7 @@ class ShareContainer extends Component {
             description: '',
             imageurl: ''
         };
+        this.handleFunctions.imageurl.bind(this);
     }
 
     handleFunctions = {
@@ -23,12 +25,14 @@ class ShareContainer extends Component {
         },
         imageurl(e) {
             const file = e.target.files[0];
+            console.log(file);
             uploadFile(file, result => {
                 if (result.progress) {
                     console.log(result.progress);
                     return;
                 }
                 if (result.downloadURL) {
+                    this.setState({ imageurl: result.downloadURL });
                     return result.downloadURL;
                 }
                 if (result.error) {
@@ -39,7 +43,7 @@ class ShareContainer extends Component {
     };
 
     render() {
-        return <Share />;
+        return <Share handleFunctions={this.handleFunctions} />;
     }
 }
 
