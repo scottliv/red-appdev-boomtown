@@ -16,7 +16,7 @@ import apolloClient from '../../config/apolloClient';
  *
  * <small>(The vertical stepper can also be used without `<StepContent>` to display a basic stepper.)</small>
  */
-class VerticalLinearStepper extends React.Component {
+class ShareForm extends React.Component {
     state = {
         finished: false,
         stepIndex: 0
@@ -147,9 +147,6 @@ class VerticalLinearStepper extends React.Component {
                                     e.preventDefault();
                                     this.props.handleFunctions.formSubmit(e);
                                 }}
-                                // onChange={e => {
-                                //     this.props.handleFunctions.imageurl(e);
-                                // }}
                                 style={{
                                     position: 'absolute',
                                     left: 0,
@@ -161,21 +158,6 @@ class VerticalLinearStepper extends React.Component {
                                 }}
                             />
                         </RaisedButton>
-                        // <p style={{ margin: '20px 0', textAlign: 'center' }}>
-                        //     <a
-                        //         href="#"
-                        //         onClick={event => {
-                        //             event.preventDefault();
-                        //             this.setState({
-                        //                 stepIndex: 0,
-                        //                 finished: false
-                        //             });
-                        //         }}
-                        //     >
-                        //         Click here
-                        //     </a>{' '}
-                        //     to reset the example.
-                        // </p>
                     )}
                 </form>
             </div>
@@ -183,4 +165,4 @@ class VerticalLinearStepper extends React.Component {
     }
 }
 
-export default VerticalLinearStepper;
+export default ShareForm;

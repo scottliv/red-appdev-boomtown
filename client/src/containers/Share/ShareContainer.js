@@ -2,17 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { graphql, compose, withApollo } from 'react-apollo';
 import gql from 'graphql-tag';
+import placeholderImage from './../../images/item-placeholder.jpg';
 
 import { uploadFile } from './fileUpload';
-import Share from './Share';
+import ShareCard from './ShareCard';
+import ShareForm from './Share';
 
 class ShareContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: '',
-            description: '',
-            imageurl: ''
+            title: 'Title',
+            description: 'Super Cool Item Description',
+            imageurl: placeholderImage
         };
         this.handleFunctions.imageurl = this.handleFunctions.imageurl.bind(
             this
@@ -67,7 +69,19 @@ class ShareContainer extends Component {
     };
 
     render() {
-        return <Share handleFunctions={this.handleFunctions} />;
+        const item = {
+            title: this.state.title,
+            description: this.state.description,
+            imageurl: this.state.imageurl,
+            itemowner: this.props.authenticated.uid,
+            tags: this.props.tags.map(tag => ({ id: tag }))
+        };
+        return (
+            <div className={'share-container'}>
+                <ShareCard item={item} />
+                <ShareForm handleFunctions={this.handleFunctions} />;
+            </div>
+        );
     }
 }
 
