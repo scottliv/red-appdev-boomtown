@@ -69,7 +69,12 @@ class VerticalLinearStepper extends React.Component {
 
         return (
             <div style={{ maxWidth: 380, maxHeight: 400, margin: 'auto' }}>
-                <form>
+                <form
+                    onSubmit={e => {
+                        e.preventDefault();
+                        this.props.handleFunctions.formSubmit(e);
+                    }}
+                >
                     <Stepper activeStep={stepIndex} orientation="vertical">
                         <Step>
                             <StepLabel>Add an image</StepLabel>
@@ -135,21 +140,42 @@ class VerticalLinearStepper extends React.Component {
                         </Step>
                     </Stepper>
                     {finished && (
-                        <p style={{ margin: '20px 0', textAlign: 'center' }}>
-                            <a
-                                href="#"
-                                onClick={event => {
-                                    event.preventDefault();
-                                    this.setState({
-                                        stepIndex: 0,
-                                        finished: false
-                                    });
+                        <RaisedButton label="Submit">
+                            <button
+                                type="submit"
+                                onClick={e => {
+                                    e.preventDefault();
+                                    this.props.handleFunctions.formSubmit(e);
                                 }}
-                            >
-                                Click here
-                            </a>{' '}
-                            to reset the example.
-                        </p>
+                                // onChange={e => {
+                                //     this.props.handleFunctions.imageurl(e);
+                                // }}
+                                style={{
+                                    position: 'absolute',
+                                    left: 0,
+                                    top: 0,
+                                    width: '100%',
+                                    height: '100%',
+                                    zIndex: 100,
+                                    opacity: 0
+                                }}
+                            />
+                        </RaisedButton>
+                        // <p style={{ margin: '20px 0', textAlign: 'center' }}>
+                        //     <a
+                        //         href="#"
+                        //         onClick={event => {
+                        //             event.preventDefault();
+                        //             this.setState({
+                        //                 stepIndex: 0,
+                        //                 finished: false
+                        //             });
+                        //         }}
+                        //     >
+                        //         Click here
+                        //     </a>{' '}
+                        //     to reset the example.
+                        // </p>
                     )}
                 </form>
             </div>

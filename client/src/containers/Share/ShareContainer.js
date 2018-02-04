@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { graphql, compose } from 'react-apollo';
+import { graphql, compose, withApollo } from 'react-apollo';
 import gql from 'graphql-tag';
 
-import { firebaseStorage } from './../../config/firebaseConfig';
 import { uploadFile } from './fileUpload';
 import Share from './Share';
 
@@ -40,27 +39,30 @@ class ShareContainer extends Component {
             uploadFile(file, result => {
                 if (result.progress) {
                     console.log(result.progress);
-                    return;
                 }
                 if (result.downloadURL) {
                     this.setState({ imageurl: result.downloadURL });
-                    // return result.downloadURL;
                 }
                 if (result.error) {
                     console.log(result.error);
                 }
             });
         },
-        formSubmit({ mutate }) {
-            mutate({
-                variables: {
-                    title: this.state.title,
-                    description: this.state.description,
-                    imageurl: this.state.imageurl,
-                    itemowner: this.props.authenticated.uid,
-                    tags: this.props.tags
-                }
-            });
+        formSubmit(e) {
+            e.persist();
+            this.props
+                .mutate({
+                    variables: {
+                        title: this.state.title,
+                        description: this.state.description,
+                        imageurl: this.state.imageurl,
+                        itemowner: this.props.authenticated.uid,
+                        tags: this.props.tags.map(tag => ({ id: tag }))
+                    }
+                })
+                .then(res => {
+                    console.log('I get results!', res);
+                });
         }
     };
 
@@ -70,7 +72,7 @@ class ShareContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-    userLoggedIn: state.auth.authenticated,
+    authenticated: state.auth.authenticated,
     tags: state.items.tags,
     error: state.items.error
 });
@@ -83,7 +85,7 @@ const newItemMutation = gql`
         $itemowner: ID
         $tags: [TagInput]
     ) {
-        addItem(
+        createNewItem(
             newItem: {
                 imageurl: $imageurl
                 title: $title
@@ -97,6 +99,8 @@ const newItemMutation = gql`
     }
 `;
 
-export default graphql(newItemMutation)(
-    connect(mapStateToProps)(ShareContainer)
-);
+export default compose(
+    withApollo,
+    graphql(newItemMutation),
+    connect(mapStateToProps)
+)(ShareContainer);
