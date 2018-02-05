@@ -13,19 +13,15 @@ class SelectFilter extends React.Component {
     };
 
     menuItemGenerator(items) {
-        return items.map(item => {
-            const tagId = item.id;
-            const tagTitle = item.title;
-            return (
-                <MenuItem
-                    checked={this.props.tags.indexOf(item.id) > -1}
-                    insetChildren
-                    key={item.id}
-                    value={item.id}
-                    primaryText={item.title}
-                />
-            );
-        });
+        return items.map(item => (
+            <MenuItem
+                checked={this.props.tags.indexOf(item.id) > -1}
+                insetChildren
+                key={item.id}
+                value={item.id}
+                primaryText={item.title}
+            />
+        ));
     }
 
     render() {

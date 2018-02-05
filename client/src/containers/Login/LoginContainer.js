@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Items from './../Items';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { firebaseAuth } from './../../config/firebaseConfig';

@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
-import { graphql, compose, gql } from 'react-apollo';
-import Share from './Share';
 import { Step, Stepper, StepLabel, StepContent } from 'material-ui/Stepper';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import SelectFilter from './../../components/SelectFilter/';
-import SelectField from 'material-ui/SelectField/SelectField';
-import apolloClient from '../../config/apolloClient';
+
 /**
  * Vertical steppers are designed for narrow screen sizes. They are ideal for mobile.
  *
@@ -16,7 +13,7 @@ import apolloClient from '../../config/apolloClient';
  *
  * <small>(The vertical stepper can also be used without `<StepContent>` to display a basic stepper.)</small>
  */
-class ShareForm extends React.Component {
+class ShareForm extends Component {
     state = {
         finished: false,
         stepIndex: 0

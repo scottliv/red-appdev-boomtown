@@ -13,6 +13,7 @@ class ShareContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            submitted: false,
             title: 'Title',
             description: 'Super Cool Item Description',
             imageurl: placeholderImage,
@@ -68,17 +69,23 @@ class ShareContainer extends Component {
                     }
                 })
                 .then(res => {
-                    console.log('I get results!', res);
+                    this.setState({ submitted: true });
+                    // console.log('I get results!', res);
                 });
         }
     };
 
     render() {
+        if (this.state.submitted) return <Redirect to={{ pathname: '/' }} />;
+
         const item = {
             title: this.state.title,
             description: this.state.description,
             imageurl: this.state.imageurl,
-            itemowner: this.props.authenticated.uid,
+            itemowner: {
+                id: this.props.authenticated.id,
+                email: this.props.authenticated.email
+            },
             tags: this.props.tags.map(tag => ({ id: tag }))
         };
         return (

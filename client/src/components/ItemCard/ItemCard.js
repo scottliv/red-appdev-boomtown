@@ -15,7 +15,6 @@ import Gravatar from 'react-gravatar';
 import styles from './styles';
 
 const ItemCard = ({ item, userLoggedIn, mutate }) => {
-    console.log(item);
     const itemId = item.id;
     let borrowerInfo = '';
     if (item.borrower && item.itemowner.id === userLoggedIn) {

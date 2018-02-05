@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { compose, graphql, withApollo } from 'react-apollo';
 import gql from 'graphql-tag';
