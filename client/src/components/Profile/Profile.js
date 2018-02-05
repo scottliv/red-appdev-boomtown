@@ -20,6 +20,6 @@ const Profile = ({ items, userLoggedIn, currentUser, borrowed }) => (
 );
 
 Profile.propTypes = {
-    items: PropTypes.object.isRequired
+    items: PropTypes.array.isRequired
 };
 export default Profile;

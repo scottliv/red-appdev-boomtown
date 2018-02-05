@@ -6,7 +6,7 @@ const FILTER_ITEMS = 'FILTER_ITEMS';
 
 // Action Creators
 
-const getItemsError = error => ({
+export const getItemsError = error => ({
     type: GET_ITEMS_ERROR,
     payload: error
 });
@@ -37,6 +37,7 @@ export default (
             isLoading: false
         };
     }
+
     default:
         return state;
     }

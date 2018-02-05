@@ -38,7 +38,7 @@ const ItemCardList = ({ items, userLoggedIn, mutate }) => (
 );
 
 ItemCardList.propTypes = {
-    items: PropTypes.object.isRequired,
+    items: PropTypes.array.isRequired,
     userLoggedIn: PropTypes.string.isRequired
 };
 export default ItemCardList;

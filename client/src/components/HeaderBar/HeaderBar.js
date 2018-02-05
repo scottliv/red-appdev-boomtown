@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import AppBar from 'material-ui/AppBar';
+import RaisedButton from 'material-ui/RaisedButton';
 import { Route, Link, withRouter } from 'react-router-dom';
 import { firebaseAuth } from './../../config/firebaseConfig';
 
-import AppBar from 'material-ui/AppBar';
-import RaisedButton from 'material-ui/RaisedButton';
 import SelectFilter from '../SelectFilter';
 
 import logo from '../../images/boomtown-logo.svg';

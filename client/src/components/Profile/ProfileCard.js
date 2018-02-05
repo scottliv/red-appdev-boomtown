@@ -43,8 +43,8 @@ const ProfileCard = ({ items, currentUser, borrowed }) => (
 );
 
 ProfileCard.propTypes = {
-    items: PropTypes.object.isRequired,
-    userLoggedIn: PropTypes.string.isRequired,
+    currentUser: PropTypes.object.isRequired,
+    items: PropTypes.array.isRequired,
     borrowed: PropTypes.array.isRequired
 };
 
