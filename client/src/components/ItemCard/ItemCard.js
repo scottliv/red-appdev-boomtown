@@ -15,12 +15,11 @@ import Gravatar from 'react-gravatar';
 import styles from './styles';
 
 const ItemCard = ({ item, userLoggedIn, mutate }) => {
+    console.log(item);
     const itemId = item.id;
     let borrowerInfo = '';
     if (item.borrower && item.itemowner.id === userLoggedIn) {
-        borrowerInfo = (
-            <CardTitle subtitle={`Lent To ${item.borrower.fullname}`} />
-        );
+        borrowerInfo = <CardTitle subtitle={'Lent to someone'} />;
     } else if (item.borrower && item.borrower.id === userLoggedIn) {
         borrowerInfo = <CardTitle subtitle={'You Are Borrowing'} />;
     } else if (item.borrower) {
