@@ -107,8 +107,9 @@ class ShareForm extends Component {
                             <StepLabel>Add a Title and Description</StepLabel>
                             <StepContent>
                                 <p>
-                                    Folks need to know what you're sharing. Give
-                                    them a clue by adding a title & description.
+                                    Folks need to know what you are sharing.
+                                    Give them a clue by adding a title &
+                                    description.
                                 </p>
                                 <TextField
                                     style={{ marginTop: 0 }}
@@ -133,7 +134,9 @@ class ShareForm extends Component {
                             <StepLabel>Select Tags</StepLabel>
                             <StepContent>
                                 <SelectFilter />
-                                {this.renderStepActions(2)}
+                                {this.props.tags.length
+                                    ? this.renderStepActions(2)
+                                    : ''}
                             </StepContent>
                         </Step>
                     </Stepper>

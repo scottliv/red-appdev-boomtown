@@ -92,6 +92,7 @@ class ShareContainer extends Component {
             <div className={'share-container'}>
                 <ShareCard item={item} />
                 <ShareForm
+                    tags={this.props.tags}
                     handleFunctions={this.handleFunctions}
                     imageUploaded={this.state.imageUploaded}
                 />;
