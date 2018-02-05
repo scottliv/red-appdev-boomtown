@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Route, Link, Redirect } from 'react-router-dom';
+import { Route, Link, withRouter } from 'react-router-dom';
 import { firebaseAuth } from './../../config/firebaseConfig';
 
 import AppBar from 'material-ui/AppBar';
@@ -72,4 +72,4 @@ const mapStateToProps = state => ({
     authenticated: state.auth.authenticated
 });
 
-export default connect(mapStateToProps)(HeaderBar);
+export default withRouter(connect(mapStateToProps)(HeaderBar));

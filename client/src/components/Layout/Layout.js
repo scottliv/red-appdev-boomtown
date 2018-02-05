@@ -30,5 +30,4 @@ const mapStateToProps = state => ({
     userLoading: state.auth.userLoading
 });
 
-// Fancy Map state to props!
 export default withRouter(connect(mapStateToProps)(Layout));
