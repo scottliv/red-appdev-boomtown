@@ -45,6 +45,7 @@ class ShareForm extends React.Component {
             <div style={{ margin: '12px 0' }}>
                 <RaisedButton
                     label={stepIndex === 2 ? 'Finish' : 'Next'}
+                    disabled={!this.props.imageUploaded}
                     disableTouchRipple
                     disableFocusRipple
                     primary
@@ -68,7 +69,7 @@ class ShareForm extends React.Component {
         const { finished, stepIndex } = this.state;
 
         return (
-            <div style={{ maxWidth: 380, maxHeight: 400, margin: 'auto' }}>
+            <div style={{ maxWidth: 480, maxHeight: 400, margin: 'auto' }}>
                 <form
                     onSubmit={e => {
                         e.preventDefault();

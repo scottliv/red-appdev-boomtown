@@ -204,4 +204,5 @@ body {
 
 .share-container {
   display: flex;
+  align-items: center;
 }

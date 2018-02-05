@@ -20,7 +20,6 @@ export const filterItems = tags => ({
 
 export default (
     state = {
-        userLoggedIn: 'eEvh1WUF5nb5eeUksUQb3Ph0kOU2',
         tags: [],
         error: ''
     },

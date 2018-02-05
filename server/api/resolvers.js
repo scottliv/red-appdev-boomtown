@@ -4,7 +4,13 @@ const fetch = require("node-fetch");
 
 module.exports = ({
   firebaseResource: { getUser, getUsers },
-  pgResource: { getTags, getSharedItems, getAllTags, createItem }
+  pgResource: {
+    getTags,
+    getSharedItems,
+    getAllTags,
+    createItem,
+    updateItemBorrower
+  }
 }) => {
   return {
     Query: {
@@ -31,8 +37,8 @@ module.exports = ({
       createNewItem(root, { newItem }) {
         return createItem(newItem);
       },
-      updateItem(root, { updatedItem: { id } }) {
-        return { id };
+      updateItem(root, { updatedItem: { id, borrower } }) {
+        return updateItemBorrower(id, borrower);
       }
     },
     Item: {

@@ -101,8 +101,19 @@ module.exports = async app => {
       }
     },
 
-    updateItem(id) {
-      return;
+    updateItemBorrower(id, borrower) {
+      return new Promise((resolve, reject) => {
+        client.query(
+          `UPDATE items SET borrower = $1 WHERE id = $2`,
+          [borrower, id],
+          (err, res) => {
+            if (err) {
+              reject(err);
+            }
+            resolve(res);
+          }
+        );
+      });
     }
   };
 };

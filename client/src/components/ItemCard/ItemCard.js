@@ -14,14 +14,33 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Gravatar from 'react-gravatar';
 import styles from './styles';
 
-const ItemCard = ({ item, userLoggedIn }) => {
+const ItemCard = ({ item, userLoggedIn, mutate }) => {
+    const itemId = item.id;
     let borrowerInfo = '';
     if (item.borrower && item.itemowner.id === userLoggedIn) {
         borrowerInfo = (
             <CardTitle subtitle={`Lent To ${item.borrower.fullname}`} />
         );
+    } else if (item.borrower && item.borrower.id === userLoggedIn) {
+        borrowerInfo = <CardTitle subtitle={'You Are Borrowing'} />;
     } else if (item.borrower) {
         borrowerInfo = <CardTitle subtitle={'Unavailable'} />;
+    }
+
+    let renderBorrowButton = '';
+    if (item.itemowner.id !== userLoggedIn) {
+        renderBorrowButton = (
+            <RaisedButton
+                label="Borrow"
+                onClick={e => {
+                    e.preventDefault();
+                    mutate({
+                        variables: { id: itemId, borrower: userLoggedIn }
+                    });
+                }}
+                secondary
+            />
+        );
     }
 
     return (
@@ -52,9 +71,7 @@ const ItemCard = ({ item, userLoggedIn }) => {
                 />
                 <CardText>{item.description}</CardText>
                 {!item.borrower ? (
-                    <CardActions>
-                        <RaisedButton label="Borrow" secondary />
-                    </CardActions>
+                    <CardActions>{renderBorrowButton}</CardActions>
                 ) : (
                     ''
                 )}

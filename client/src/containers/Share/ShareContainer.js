@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { graphql, compose, withApollo } from 'react-apollo';
 import gql from 'graphql-tag';
+import { Redirect } from 'react-router-dom';
 import placeholderImage from './../../images/item-placeholder.jpg';
 
 import { uploadFile } from './fileUpload';
@@ -14,7 +15,8 @@ class ShareContainer extends Component {
         this.state = {
             title: 'Title',
             description: 'Super Cool Item Description',
-            imageurl: placeholderImage
+            imageurl: placeholderImage,
+            imageUploaded: false
         };
         this.handleFunctions.imageurl = this.handleFunctions.imageurl.bind(
             this
@@ -43,7 +45,10 @@ class ShareContainer extends Component {
                     console.log(result.progress);
                 }
                 if (result.downloadURL) {
-                    this.setState({ imageurl: result.downloadURL });
+                    this.setState({
+                        imageurl: result.downloadURL,
+                        imageUploaded: true
+                    });
                 }
                 if (result.error) {
                     console.log(result.error);
@@ -79,7 +84,10 @@ class ShareContainer extends Component {
         return (
             <div className={'share-container'}>
                 <ShareCard item={item} />
-                <ShareForm handleFunctions={this.handleFunctions} />;
+                <ShareForm
+                    handleFunctions={this.handleFunctions}
+                    imageUploaded={this.state.imageUploaded}
+                />;
             </div>
         );
     }
