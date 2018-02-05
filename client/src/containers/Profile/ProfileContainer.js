@@ -16,8 +16,8 @@ class ProfileContainer extends Component {
         return (
             <Profile
                 items={user.shareditems}
-                userLoggedIn={user}
-                currentUser={this.props.currentUser}
+                userLoggedIn={this.props.userLoggedIn}
+                currentUser={user}
                 borrowed={this.props.borrowed}
             />
         );
@@ -27,7 +27,7 @@ class ProfileContainer extends Component {
 const mapStateToProps = state => ({
     borrowed: state.profile.borrowed,
     userid: state.profile.userid,
-    userLoggedIn: state.profile.userLoggedIn,
+    userLoggedIn: state.auth.authenticated.uid,
     currentUser: state.profile.currentUser,
     error: state.profile.error
 });
@@ -36,7 +36,9 @@ const getProfile = gql`
     query getUserProfile($ID: ID) {
         user(id: $ID) {
             id
+            bio
             fullname
+            email
             shareditems {
                 id
                 title
