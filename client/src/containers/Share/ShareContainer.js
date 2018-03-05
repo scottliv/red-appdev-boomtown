@@ -40,7 +40,6 @@ class ShareContainer extends Component {
         },
         imageurl(e) {
             const file = e.target.files[0];
-            console.log(file);
             uploadFile(file, result => {
                 if (result.progress) {
                     console.log(result.progress);
@@ -66,11 +65,16 @@ class ShareContainer extends Component {
                         imageurl: this.state.imageurl,
                         itemowner: this.props.authenticated.uid,
                         tags: this.props.tags.map(tag => ({ id: tag }))
+                    },
+                    update: (proxy, { data: { createNewItem } }) => {
+                        const data = proxy.readQuery({ query: fetchItems });
+
+                        data.items.push(createNewItem);
+                        proxy.writeQuery({ query: fetchItems, data });
                     }
                 })
                 .then(res => {
                     this.setState({ submitted: true });
-                    // console.log('I get results!', res);
                 });
         }
     };
@@ -129,8 +133,34 @@ const newItemMutation = gql`
     }
 `;
 
+const fetchItems = gql`
+    query fetchItems {
+        items {
+            id
+            title
+            created
+            itemowner {
+                id
+                fullname
+                email
+            }
+            tags {
+                id
+                title
+            }
+            borrower {
+                id
+            }
+            imageurl
+            description
+            available
+        }
+    }
+`;
+
 export default compose(
     withApollo,
     graphql(newItemMutation),
+    graphql(fetchItems),
     connect(mapStateToProps)
 )(ShareContainer);
