@@ -14,7 +14,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Gravatar from 'react-gravatar';
 import styles from './styles';
 
-const ItemCard = ({ item, userLoggedIn, mutate }) => {
+const ItemCard = ({ item, userLoggedIn, toggle, fetchItems }) => {
     const itemId = item.id;
     let borrowerInfo = '';
     if (item.borrower && item.itemowner.id === userLoggedIn) {
@@ -32,9 +32,17 @@ const ItemCard = ({ item, userLoggedIn, mutate }) => {
                 label="Borrow"
                 onClick={e => {
                     e.preventDefault();
-                    mutate({
-                        variables: { id: itemId, borrower: userLoggedIn }
-                    });
+                    // mutate({
+                    //     variables: { id: itemId, borrower: userLoggedIn },
+                    //     update: (proxy, { data: { updateBorrower } }) => {
+                    //         const data = proxy.readQuery({ query: fetchItems });
+
+                    //         data.items.push(updateBorrower);
+
+                    //         proxy.writeQuery({ query: fetchItems, data });
+                    //     }
+                    // });
+                    toggle({ itemId, itemName: item.title });
                 }}
                 secondary
             />

@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { compose, graphql, withApollo } from 'react-apollo';
 import gql from 'graphql-tag';
 
+import { toggleModal, setItemInfo } from '../../redux/modules/borrow';
+import Borrowed from '../Borrowed';
 import ItemCardList from '../../components/ItemCardList/';
 import Loader from '../../components/Loader/';
 
@@ -28,21 +30,34 @@ class ItemsContainer extends Component {
         return filteredItems;
     };
 
+    toggleModal = itemInfo => {
+        this.props.dispatch(setItemInfo(itemInfo));
+        this.props.dispatch(toggleModal(true));
+    };
+
     render() {
-        const { loading, items } = this.props.data;
+        console.log(this.props);
+        const { loading, items, showModal } = this.props.data;
         if (loading) return <Loader />;
         return this.props.tags && Object.keys(this.props.tags).length ? (
-            <ItemCardList
-                userLoggedIn={this.props.userLoggedIn}
-                items={this.filterHelperFunction(items, this.props.tags)}
-                mutate={this.props.mutate}
-            />
+            <div>
+                <Borrowed />
+                <ItemCardList
+                    userLoggedIn={this.props.userLoggedIn}
+                    items={this.filterHelperFunction(items, this.props.tags)}
+                    toggle={this.toggleModal}
+                />
+            </div>
         ) : (
-            <ItemCardList
-                items={items}
-                userLoggedIn={this.props.userLoggedIn}
-                mutate={this.props.mutate}
-            />
+            <div>
+                <Borrowed />
+                <ItemCardList
+                    items={items}
+                    userLoggedIn={this.props.userLoggedIn}
+                    fetchItems={this.props.client.query}
+                    toggle={this.toggleModal}
+                />
+            </div>
         );
     }
 }
@@ -50,12 +65,14 @@ class ItemsContainer extends Component {
 const mapStateToProps = state => ({
     userLoggedIn: state.auth.authenticated.uid,
     tags: state.items.tags,
-    error: state.items.error
+    error: state.items.error,
+    showModal: state.items.showModal
 });
 
 ItemsContainer.propTypes = {
     userLoggedIn: PropTypes.string.isRequired,
-    tags: PropTypes.array.isRequired
+    tags: PropTypes.array.isRequired,
+    showModal: PropTypes.bool
 };
 
 const updateItemBorrower = gql`

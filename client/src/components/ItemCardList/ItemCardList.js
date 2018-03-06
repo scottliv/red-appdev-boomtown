@@ -12,7 +12,7 @@ const masonryOptions = {
     itemSelector: '.item-card'
 };
 
-const ItemCardList = ({ items, userLoggedIn, mutate }) => (
+const ItemCardList = ({ items, userLoggedIn, toggle, fetchItems }) => (
     <div className="item-gallery">
         <Masonry elementType="div" options={masonryOptions}>
             {Object.values(items).map(item => (
@@ -21,7 +21,8 @@ const ItemCardList = ({ items, userLoggedIn, mutate }) => (
                         key={item.id}
                         item={item}
                         userLoggedIn={userLoggedIn}
-                        mutate={mutate}
+                        fetchItems={fetchItems}
+                        toggle={toggle}
                     />
                 </div>
             ))}
