@@ -32,14 +32,16 @@ export default (
             ...state,
             showModal: false,
             itemId: '',
-            itemName: ''
+            itemName: '',
+            borrowerId: ''
         };
     }
     case SET_ITEM_INFO: {
         return {
             ...state,
             itemId: action.payload.itemId,
-            itemName: action.payload.itemName
+            itemName: action.payload.itemName,
+            borrowerId: action.payload.borrowerId
         };
     }
     case TOGGLE_MODAL: {

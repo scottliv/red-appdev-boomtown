@@ -4,16 +4,9 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import { connect } from 'react-redux';
 import { toggleModal } from '../../redux/modules/borrow';
-import { firebaseAuth } from '../../config/firebaseConfig';
-
-/**
- * Dialog with action buttons. The actions are passed in as an array of React objects,
- * in this example [FlatButtons](/#/components/flat-button).
- *
- * You can also close this dialog by clicking outside the dialog, or with the 'Esc' key.
- */
 
 const BorrowModal = ({
+    borrowerId,
     isModalOpen,
     itemId,
     itemName,
@@ -34,7 +27,7 @@ const BorrowModal = ({
                     primary
                     keyboardFocused
                     onClick={() => {
-                        submitBorrow(itemId, `${firebaseAuth.currentUser.uid}`);
+                        submitBorrow(itemId, borrowerId);
                     }}
                 />
             ]}
@@ -50,7 +43,8 @@ const BorrowModal = ({
 const mapStateToProps = state => ({
     isModalOpen: state.borrow.showModal,
     itemName: state.borrow.itemName,
-    itemId: state.borrow.itemId
+    itemId: state.borrow.itemId,
+    borrowerId: state.borrow.borrowerId
 });
 
 const mapDispatchToProps = dispatch => ({

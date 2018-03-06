@@ -26,23 +26,32 @@ const ItemCard = ({ item, userLoggedIn, toggle, fetchItems }) => {
     }
 
     let renderBorrowButton = '';
+    let returnButton = '';
+    let renderReturnButton = false;
     if (item.itemowner.id !== userLoggedIn) {
         renderBorrowButton = (
             <RaisedButton
                 label="Borrow"
                 onClick={e => {
                     e.preventDefault();
-                    // mutate({
-                    //     variables: { id: itemId, borrower: userLoggedIn },
-                    //     update: (proxy, { data: { updateBorrower } }) => {
-                    //         const data = proxy.readQuery({ query: fetchItems });
-
-                    //         data.items.push(updateBorrower);
-
-                    //         proxy.writeQuery({ query: fetchItems, data });
-                    //     }
-                    // });
-                    toggle({ itemId, itemName: item.title });
+                    toggle({
+                        itemId,
+                        itemName: item.title,
+                        borrowerId: userLoggedIn
+                    });
+                }}
+                secondary
+            />
+        );
+    }
+    if (item.borrower && item.borrower.id === userLoggedIn) {
+        renderReturnButton = true;
+        returnButton = (
+            <RaisedButton
+                label="Return"
+                onClick={e => {
+                    e.preventDefault();
+                    toggle({ itemId, itemName: item.title, borrowerId: null });
                 }}
                 secondary
             />
@@ -78,6 +87,11 @@ const ItemCard = ({ item, userLoggedIn, toggle, fetchItems }) => {
                 <CardText>{item.description}</CardText>
                 {!item.borrower ? (
                     <CardActions>{renderBorrowButton}</CardActions>
+                ) : (
+                    ''
+                )}
+                {renderReturnButton ? (
+                    <CardActions>{returnButton}</CardActions>
                 ) : (
                     ''
                 )}
