@@ -11,11 +11,12 @@ const BorrowModal = ({
     itemId,
     itemName,
     setModalShowStateTo,
-    submitBorrow
+    submitBorrow,
+    actionType
 }) => (
     <div>
         <Dialog
-            title="Dialog With Actions"
+            title={actionType}
             actions={[
                 <FlatButton
                     label="Cancel"
@@ -35,7 +36,7 @@ const BorrowModal = ({
             open={isModalOpen}
             onRequestClose={setModalShowStateTo(false)}
         >
-            Do you really want to borrow this {itemName}?
+            Do You Really Want To {actionType} This {itemName}?
         </Dialog>
     </div>
 );
@@ -44,7 +45,8 @@ const mapStateToProps = state => ({
     isModalOpen: state.borrow.showModal,
     itemName: state.borrow.itemName,
     itemId: state.borrow.itemId,
-    borrowerId: state.borrow.borrowerId
+    borrowerId: state.borrow.borrowerId,
+    actionType: state.borrow.actionType
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -22,7 +22,8 @@ export default (
         showModal: false,
         error: '',
         itemId: '',
-        itemName: ''
+        itemName: '',
+        actionType: ''
     },
     action
 ) => {
@@ -41,7 +42,8 @@ export default (
             ...state,
             itemId: action.payload.itemId,
             itemName: action.payload.itemName,
-            borrowerId: action.payload.borrowerId
+            borrowerId: action.payload.borrowerId,
+            actionType: action.payload.actionType
         };
     }
     case TOGGLE_MODAL: {

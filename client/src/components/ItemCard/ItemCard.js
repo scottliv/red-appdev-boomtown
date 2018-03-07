@@ -37,7 +37,8 @@ const ItemCard = ({ item, userLoggedIn, toggle, fetchItems }) => {
                     toggle({
                         itemId,
                         itemName: item.title,
-                        borrowerId: userLoggedIn
+                        borrowerId: userLoggedIn,
+                        actionType: 'Borrow'
                     });
                 }}
                 secondary
@@ -51,7 +52,12 @@ const ItemCard = ({ item, userLoggedIn, toggle, fetchItems }) => {
                 label="Return"
                 onClick={e => {
                     e.preventDefault();
-                    toggle({ itemId, itemName: item.title, borrowerId: null });
+                    toggle({
+                        itemId,
+                        itemName: item.title,
+                        borrowerId: null,
+                        actionType: 'Return'
+                    });
                 }}
                 secondary
             />
